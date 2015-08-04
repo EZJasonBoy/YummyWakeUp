@@ -6,27 +6,15 @@
     tools:context=".MainActivity">
     <!-- Current time -->
     <TextView
-        android:id="@+id/tv_cuurentTime"
+        android:id="@+id/tv_curentTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_week_month_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tv_month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
     <!-- Alarm on/off -->
     <LinearLayout
         android:layout_width="fill_parent"
