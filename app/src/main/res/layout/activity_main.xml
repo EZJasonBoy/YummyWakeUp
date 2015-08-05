@@ -1,11 +1,166 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/pater_river"
+    tools:context=".MainActivity">
+    <!-- Current time -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_curentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/clounds"
+            android:textSize="80sp"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_week_month_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/clounds"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
+    <!-- Alarm on/off -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_alarmTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click To Set Time"
+            android:textColor="@color/clounds"/>
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
+
+    <!-- Alarm Day -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+       <Button
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
+    <!-- Vibrate -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_vibrate"/>
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
+    <!-- Alarm -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_alarm"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
+    <!-- Alarm Type-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_notification"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
