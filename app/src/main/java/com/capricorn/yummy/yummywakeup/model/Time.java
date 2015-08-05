@@ -28,8 +28,8 @@ public class Time {
         this.hour = date.get(Calendar.HOUR_OF_DAY);
         this.min = date.get(Calendar.MINUTE);
 
-        timeLabel = TimeToString();
-        weekMonthDayLabel = WeekDayToString() + ", " + MonthToString() + " " + this.day;
+        this.timeLabel = TimeToString();
+        this.weekMonthDayLabel = WeekDayToString() + ", " + MonthToString() + " " + this.day;
 
     }
 
@@ -118,5 +118,13 @@ public class Time {
                 break;
         }
         return weekDay;
+    }
+
+    public String getTimeLabel() {
+        return timeLabel;
+    }
+
+    public String getWeekMonthDayLabel() {
+        return weekMonthDayLabel;
     }
 }
