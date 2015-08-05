@@ -3,18 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/pater_river"
     tools:context=".MainActivity">
     <!-- Current time -->
-    <TextView
-        android:id="@+id/tv_curentTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_week_month_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_curentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/clounds"/>
 
+        <TextView
+            android:id="@+id/tv_week_month_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/clounds"/>
+
+    </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
     <!-- Alarm on/off -->
     <LinearLayout
         android:layout_width="fill_parent"
@@ -24,13 +39,22 @@
         <TextView
             android:id="@+id/tv_alarmTime"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Click To Set Time"
+            android:textColor="@color/clounds"/>
 
         <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
+
     <!-- Alarm Day -->
     <LinearLayout
         android:layout_width="fill_parent"
@@ -60,6 +84,12 @@
            android:layout_height="wrap_content" />
 
     </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
     <!-- Vibrate -->
     <LinearLayout
         android:layout_width="fill_parent"
@@ -78,6 +108,12 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
     <!-- Alarm -->
     <LinearLayout
         android:layout_width="fill_parent"
@@ -96,6 +132,12 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+    <!-- Divider-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_gravity="center_vertical"
+        android:background="@color/concrete" />
     <!-- Alarm Type-->
     <LinearLayout
         android:layout_width="fill_parent"

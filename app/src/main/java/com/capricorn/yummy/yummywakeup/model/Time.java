@@ -22,7 +22,7 @@ public class Time {
         date = Calendar.getInstance();
         date.setTimeInMillis(time);
 
-        this.month = date.get(Calendar.MONTH) + 1;
+        this.month = date.get(Calendar.MONTH);
         this.day = date.get(Calendar.DAY_OF_MONTH);
         this.weekDay = date.get(Calendar.DAY_OF_WEEK);
         this.hour = date.get(Calendar.HOUR_OF_DAY);
