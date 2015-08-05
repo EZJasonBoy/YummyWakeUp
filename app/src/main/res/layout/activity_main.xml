@@ -71,44 +71,65 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_circular"
+            android:textColor="@color/color_3"
+            android:text="M" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_circular"
+            android:textColor="@color/color_3"
+            android:text="T" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_circular"
+            android:textColor="@color/color_3"
+            android:text="W" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_circular"
+            android:textColor="@color/color_3"
+            android:text="T" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_circular"
+            android:textColor="@color/color_3"
+            android:text="F" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_circular"
+            android:textColor="@color/color_3"
+            android:text="S" />
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_circular"
+            android:textColor="@color/color_3"
+            android:text="W" />
 
     </LinearLayout>
     <!-- Divider-->
     <include
         layout="@layout/layout_divider"
         android:layout_width="match_parent"
-        android:layout_height="1px"
-
-        />
+        android:layout_height="1px" />
     <!-- Vibrate -->
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -141,9 +162,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-
-        />
+        android:layout_marginRight="16dp" />
     <!-- Alarm -->
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -208,13 +227,11 @@
 
     </RelativeLayout>
 
-
     <include
         layout="@layout/layout_divider"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp" />
-
 
 </LinearLayout>
