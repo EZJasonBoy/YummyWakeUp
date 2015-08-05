@@ -38,7 +38,11 @@ public class Time {
      * @return String of current hour and min
      */
     private String TimeToString() {
-        return this.hour + ":" + this.min;
+        if(this.min < 10){
+            return this.hour + ":0" + this.min;
+        }else{
+            return this.hour + ":" + this.min;
+        }
     }
 
     /**

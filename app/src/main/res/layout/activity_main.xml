@@ -9,19 +9,24 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/tv_curentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/clounds"/>
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/clounds"
+            android:textSize="80sp"/>
 
         <TextView
             android:id="@+id/tv_week_month_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/clounds"/>
+            android:textColor="@color/clounds"
+            android:textSize="20sp"/>
 
     </LinearLayout>
     <!-- Divider-->
