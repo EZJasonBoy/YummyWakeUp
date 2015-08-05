@@ -28,5 +28,16 @@
 
     <!-- Theme Color-->
     <color name="primaryColor">#3498DB</color><!-- Pater_river -->
+    
+    
+    <!--color palette for YummyWakeUp-->
+    <color name="color_1" >#2E4A8F</color>
+    <color name="color_2" >#FA3F7E</color>
+    <color name="color_3" >#FFFFFF</color>
+    <color name="color_4" >#000000</color>
+
+
+
+
 
 </resources>
