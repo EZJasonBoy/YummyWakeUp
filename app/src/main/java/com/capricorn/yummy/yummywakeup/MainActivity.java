@@ -22,14 +22,14 @@ public class MainActivity extends Activity {
 
         tvCurrentTime = (TextView) findViewById(R.id.tv_curentTime);
         tvWeekMonthDay = (TextView) findViewById(R.id.tv_week_month_day);
-        timerHandler.sendEmptyMessage(0); // Start to show current time
+        timeHandler.sendEmptyMessage(0); // Start to show current time
 
     }
 
-    private Handler timerHandler = new Handler(){
+    private Handler timeHandler = new Handler(){
         public void handleMessage(Message msg) {
             refreshTime();
-            timerHandler.sendEmptyMessageDelayed(0, 1000); // Update time Every one second
+            timeHandler.sendEmptyMessageDelayed(0, 1000); // Update time Every one second
         }
     };
 
