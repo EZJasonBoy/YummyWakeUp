@@ -6,5 +6,9 @@
     <string name="action_vibrate">Vibrate</string>
     <string name="action_ringtone">Ringtone</string>
     <string name="action_alarm_lock_open">Lock Open</string>
+    <string name="title_activity_ringtone_setting">RingtoneSetting</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="voice">Voice</string>
 
 </resources>
