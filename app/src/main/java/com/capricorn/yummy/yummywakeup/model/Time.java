@@ -3,6 +3,7 @@ package com.capricorn.yummy.yummywakeup.model;
 import java.util.Calendar;
 
 /**
+ * Model to present current time
  * Created by Chuan on 8/4/2015.
  */
 public class Time {
@@ -12,8 +13,8 @@ public class Time {
     private int month;
     private int weekDay;
     private int day;
-    private String timeLabel = "";
-    private String weekMonthDayLabel = "";
+    private String timeLabel = "";         // Current Hour:Min shown on TextView tv_curentTime
+    private String weekMonthDayLabel = ""; // Current Week, Month Day shown on TextView tv_week_month_day
     private Calendar date;
 
     public Time(long time) {
@@ -32,10 +33,18 @@ public class Time {
 
     }
 
+    /**
+     * Return a string to present current hour and min
+     * @return String of current hour and min
+     */
     private String TimeToString() {
         return this.hour + ":" + this.min;
     }
 
+    /**
+     * Return a string to present current month (ex: 1 -> Jan)
+     * @return String corresponding current month
+     */
     private String MonthToString() {
         String month = "";
         switch (this.month) {
@@ -79,6 +88,10 @@ public class Time {
         return month;
     }
 
+    /**
+     * Return a string to present current month (ex: 1 -> Mon)
+     * @return String corresponding current week day
+     */
     private String WeekDayToString() {
         String weekDay = "";
         switch (this.weekDay) {
