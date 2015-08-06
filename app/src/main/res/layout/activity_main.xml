@@ -51,7 +51,8 @@
             android:layout_centerVertical="true"
             android:text="12:00"
             android:textColor="@color/color_3"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:onClick="setAlarmTime" />
 
         <Switch
             android:layout_width="wrap_content"
