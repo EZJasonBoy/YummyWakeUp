@@ -24,6 +24,8 @@ public class MainActivity extends Activity {
         tvWeekMonthDay = (TextView) findViewById(R.id.tv_week_month_day);
         timeHandler.sendEmptyMessage(0); // Start to show current time
 
+
+
     }
 
     private Handler timeHandler = new Handler(){
