@@ -41,7 +41,8 @@
         android:layout_height="72dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:onClick="setAlarmTime" >
 
         <com.capricorn.yummy.yummywakeup.view.RobotoTextView
             android:id="@+id/tv_alarmTime"
@@ -51,8 +52,7 @@
             android:layout_centerVertical="true"
             android:text="12:00"
             android:textColor="@color/color_3"
-            android:textSize="30sp"
-            android:onClick="setAlarmTime" />
+            android:textSize="30sp" />
 
         <Switch
             android:layout_width="wrap_content"

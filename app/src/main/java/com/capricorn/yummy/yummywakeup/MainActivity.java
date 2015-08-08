@@ -64,12 +64,12 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * OnClick for TextView tv_alarmTime to set alarm time
+     * OnClick for relativelayout to set alarm time
      * @param view
      */
     public void setAlarmTime(View view) {
 
-        Calendar c = Calendar.getInstance();
+        final Calendar c = Calendar.getInstance();
 
         new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                         timeSetting.getTimeInMillis(),
                         24*60*60*1000,
-                        PendingIntent.getBroadcast(this, LOCK_TYPE_NORMAL, new Intent(this, AlarmReceiver.class), 0));
+                        PendingIntent.getBroadcast(getApplicationContext(), LOCK_TYPE_NORMAL, new Intent(getApplicationContext(), AlarmReceiver.class), 0));
                 // Save alarm time
                 saveAlarmList();
             }

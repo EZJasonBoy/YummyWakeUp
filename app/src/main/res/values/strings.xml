@@ -10,5 +10,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="voice">Voice</string>
+    <string name="play_sound">Play Sound</string>
 
 </resources>
