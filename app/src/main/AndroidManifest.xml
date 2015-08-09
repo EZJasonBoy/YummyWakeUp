@@ -1,26 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.capricorn.yummy.yummywakeup" >
+    package="com.capricorn.yummy.yummywakeup">
 
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    
     <application
+        android:name=".YummyWakeUpApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity
             android:name=".RingtoneSetting"
-            android:label="@string/title_activity_ringtone_setting" >
-        </activity>
+            android:label="@string/title_activity_ringtone_setting" />
+
+
+        <!--设置闹钟-->
+        <activity
+            android:name="com.capricorn.yummy.yummywakeup.alarm.SetAlarm"
+            android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+            android:label="@string/set_alarm" />
+
+
+        <!-- 闹钟执行时弹出一个全屏的Activity -->
+        <activity
+            android:name="com.capricorn.yummy.yummywakeup.alarm.AlarmAlertFullScreen"
+            android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.Wallpaper.NoTitleBar" />
+
+
+        <!-- 闹钟执行时弹出对话框 -->
+        <activity
+            android:name="com.capricorn.yummy.yummywakeup.alarm.AlarmAlert"
+            android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity="" />
+
+        <provider android:name=".service.AlarmProvider"
+            android:authorities="com.capricorn.yummy.yummywakeup"
+            android:exported="false" />
+
+        <!-- 闹钟执行时触发 -->
+        <receiver android:name=".service.AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.yummywakeup.ALARM_ALERT" />
+                <action android:name="alarm_killed" />
+                <action android:name="cancel_snooze" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 用来响铃和振动，和AlarmReceiver同时执行 -->
+        <!-- This service receives the same intent as AlarmReceiver but it does
+      not respond to the same broadcast. The AlarmReceiver will receive
+      the alert broadcast and will start this service with the same
+      intent. The service plays the alarm alert and vibrates the device.
+      This allows the alert to continue playing even if another activity
+      causes the AlarmAlert activity to pause. -->
+        <service
+            android:name=".service.AlarmKlaxon"
+            android:description="@string/alarm_klaxon_service_desc">
+            <intent-filter>
+                <action android:name="com.yummywakeup.ALARM_ALERT" />
+            </intent-filter>
+        </service>
+
+        <!-- 重新开机后初始化闹钟 -->
+        <receiver android:name=".service.AlarmInitReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>
