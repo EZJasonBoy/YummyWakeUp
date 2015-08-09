@@ -41,18 +41,12 @@ public class MainActivity extends Activity {
 
         tvCurrentTime = (TextView) findViewById(R.id.tv_curentTime);
         tvWeekMonthDay = (TextView) findViewById(R.id.tv_week_month_day);
-        timeHandler.sendEmptyMessage(0); // Start to show current time
+        // Start to show current time
+        timeHandler.sendEmptyMessage(0);
 
         tvAlarmTime = (TextView) findViewById(R.id.tv_alarmTime);
-    
-    //    readSavedAlarmList();
-
-
-        //获取闹钟的cursor
-
 
         initAlarm();
-        
     }
 
     private Handler timeHandler = new Handler(){
@@ -139,7 +133,6 @@ public class MainActivity extends Activity {
         },c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
     }
 
-    
     private void initAlarm(){
         SharedPreferences sharedPreferences = this.getSharedPreferences(PreferenceKeys.SHARE_NAME, Context.MODE_PRIVATE);
         alarmId = sharedPreferences.getInt(PreferenceKeys.PREF_CURREN_ALARM_ID, -1);
