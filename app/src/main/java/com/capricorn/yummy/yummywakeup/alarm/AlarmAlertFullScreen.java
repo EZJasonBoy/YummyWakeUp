@@ -84,7 +84,6 @@ public class AlarmAlertFullScreen extends Activity {
         //sign changed by reason
         mAlarm = Alarms.getAlarm(getContentResolver(), mAlarm.id);
 
-
         /**
          * 判断解锁方式，根据解锁方式弹出解锁框，显示Fragment
          */
@@ -103,12 +102,7 @@ public class AlarmAlertFullScreen extends Activity {
 
         }else if (mAlarm.unlockType == Alarm.AlarmUnlockType.Shake.value()){
             //摇晃
-
-
-
         }
-
-        
 
         // Get the volume/camera button behavior setting
         final String vol =

@@ -22,9 +22,7 @@ public class ToastMaster {
 
     private static Toast sToast = null;
 
-    private ToastMaster() {
-
-    }
+    private ToastMaster() {}
 
     public static void setToast(Toast toast) {
         if (sToast != null)
@@ -37,5 +35,4 @@ public class ToastMaster {
             sToast.cancel();
         sToast = null;
     }
-
 }

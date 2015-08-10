@@ -171,12 +171,13 @@ public final class Alarm implements Parcelable {
     public DaysOfWeek daysOfWeek;
     public long       time;
     public boolean    vibrate;
-    public String label;
-    public Uri alert;
+    public String     label;
+    public Uri        alert;
     public boolean    silent;
-    public int unlockType;
+    public int        unlockType;
 
     public Alarm(Cursor c) {
+
         id = c.getInt(Columns.ALARM_ID_INDEX);
         enabled = c.getInt(Columns.ALARM_ENABLED_INDEX) == 1;
         hour = c.getInt(Columns.ALARM_HOUR_INDEX);
@@ -187,6 +188,7 @@ public final class Alarm implements Parcelable {
         label = c.getString(Columns.ALARM_MESSAGE_INDEX);
         String alertString = c.getString(Columns.ALARM_ALERT_INDEX);
         unlockType = c.getInt(Columns.ALARM_UNLOCK_TYPE);
+
         if (Alarms.ALARM_ALERT_SILENT.equals(alertString)) {
             if (true) {
                 Log.v("yummywakeup", "Alarm is marked as silent");
@@ -220,7 +222,9 @@ public final class Alarm implements Parcelable {
         unlockType = p.readInt();
     }
 
-    // Creates a default alarm at the current time
+    /**
+     * Creates a default alarm at the current time
+     */
     public Alarm() {
         id = -1;
         Calendar c = Calendar.getInstance();
@@ -240,7 +244,9 @@ public final class Alarm implements Parcelable {
         return label;
     }
 
-    // create the enum with static values
+    /**
+     * create the enum with static values
+     */
     public enum AlarmUnlockType {
 
         Normal(1),
@@ -257,8 +263,6 @@ public final class Alarm implements Parcelable {
             return value;
         }
     }
-
-
 
     /*
      * Days of week code as a single int.
