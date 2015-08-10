@@ -86,6 +86,9 @@ public class Alarms {
 
     /**
      * Creates a new Alarm and fills in the given alarm's id.
+     * @param context
+     * @param alarm
+     * @return alarm ID
      */
     public static int addAlarm(Context context, Alarm alarm) {
         ContentValues values = createContentValues(alarm);
@@ -98,8 +101,7 @@ public class Alarms {
             clearSnoozeIfNeeded(context, timeInMillis);
         }
         setNextAlert(context);
-        
-        
+
         return alarm.id;
     }
 

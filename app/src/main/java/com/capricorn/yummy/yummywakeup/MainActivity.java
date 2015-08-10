@@ -27,12 +27,9 @@ public class MainActivity extends Activity {
     private TextView tvWeekMonthDay;
     private TextView tvAlarmTime;
 
-    private AlarmManager alarmManager;
-
-    private static final int LOCK_TYPE_NORMAL = 1;
-    private static final String SP_ALARM_TIME = "YummyAlarmTime";
-
     private int alarmId;
+
+    private final static int ALARM_NOT_SET = -1;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,19 +76,18 @@ public class MainActivity extends Activity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-
                 Alarm alarm = new Alarm();
                 alarm.id = alarmId;
                 alarm.enabled = true;
                 alarm.hour = hourOfDay;
                 alarm.minutes = minute;
-                alarm.daysOfWeek = new Alarm.DaysOfWeek(0);
-                alarm.vibrate = true;
                 alarm.label = "闹钟 巴拉拉";
-                alarm.alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 
                 long time;
-                if (alarm.id == -1) {
+                if (alarm.id == ALARM_NOT_SET) {
+                    // ToDo Not possible to go into this bloc
+                    // Is time here the Id of alarm?
+                    // If alarm not set yet, set a new alarm
                     time = Alarms.addAlarm(MainActivity.this, alarm);
                     // addAlarm populates the alarm with the new id. Update mId so that
                     // changes to other preferences update the new alarm.
@@ -100,84 +96,59 @@ public class MainActivity extends Activity {
                     time = Alarms.setAlarm(MainActivity.this, alarm);
                 }
 
-                Toast.makeText(MainActivity.this,Alarms.formatToast(MainActivity.this,time),Toast.LENGTH_SHORT).show();
-
-                final Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.HOUR_OF_DAY, alarm.hour);
-                cal.set(Calendar.MINUTE, alarm.minutes);
-                tvAlarmTime.setText(Alarms.formatTime(MainActivity.this, cal));
-                
-                
-        /*        Calendar timeSetting = Calendar.getInstance();
-
-                timeSetting.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                timeSetting.set(Calendar.MINUTE, minute);
-                timeSetting.set(Calendar.SECOND, 0);
-                timeSetting.set(Calendar.MILLISECOND, 0);
-
-                // If setting time is earlier than current time, day + 1
-                if (timeSetting.getTimeInMillis() <= c.getTimeInMillis()) {
-                    timeSetting.setTimeInMillis(timeSetting.getTimeInMillis()+24*60*60*1000);
-                }
-*/
-                // Setting alarm
-               /* alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                        timeSetting.getTimeInMillis(),
-                        24*60*60*1000,
-                        PendingIntent.getBroadcast(getApplicationContext(), LOCK_TYPE_NORMAL, new Intent(getApplicationContext(), AlarmReceiver.class), 0));*/
-                // Save alarm time
-                
-            //    saveAlarmList();
-                
+                Toast.makeText(MainActivity.this,
+                        Alarms.formatToast(MainActivity.this, time),
+                        Toast.LENGTH_SHORT).show();
+                // Set alarm time on TextView
+                setAlarmTimeOnTextView(alarm);
             }
         },c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
+        // ToDo why not save here?
     }
 
     private void initAlarm(){
-        SharedPreferences sharedPreferences = this.getSharedPreferences(PreferenceKeys.SHARE_NAME, Context.MODE_PRIVATE);
-        alarmId = sharedPreferences.getInt(PreferenceKeys.PREF_CURREN_ALARM_ID, -1);
+        // Read saved alarm time from sharedPreference
+        alarmId = readSavedAlarm();
         
-        if (alarmId <=0){
-            //当前没闹钟,设置一个默认闹钟
+        if (alarmId == ALARM_NOT_SET){
+            // If no alarm available, set a default alarm with current time
             Alarm alarm = new Alarm();
-
-            final Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.HOUR_OF_DAY, alarm.hour);
-            cal.set(Calendar.MINUTE, alarm.minutes);
-            final String time = Alarms.formatTime(this, cal);
-           
-            tvAlarmTime.setText(time);
-            alarmId = Alarms.addAlarm(this,alarm);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt(PreferenceKeys.PREF_CURREN_ALARM_ID, alarmId);
-            editor.commit();
-            
+            // Set alarm time on TextView
+            setAlarmTimeOnTextView(alarm);
+            alarmId = Alarms.addAlarm(this, alarm);
+            saveAlarm();
         }else {
-            Alarm alarm = Alarms.getAlarm(getContentResolver(),alarmId);
-            tvAlarmTime.setText(""+alarm.hour+":"+alarm.minutes);
+            Alarm alarm = Alarms.getAlarm(getContentResolver(), alarmId);
+            tvAlarmTime.setText("" + alarm.hour + ":" + alarm.minutes);
         }
-        
     }
-    
-    
+
     /**
      * Save alarm time in sharedPreference
      */
-  /*  private void saveAlarmList() {
-       SharedPreferences.Editor editor = this.getSharedPreferences(this.getLocalClassName(), Context.MODE_PRIVATE).edit();
-
-        editor.putString(SP_ALARM_TIME, tvAlarmTime.getText().toString())
+    private void saveAlarm() {
+        SharedPreferences.Editor editor = this.getSharedPreferences(PreferenceKeys.SHARE_PREF_NAME, Context.MODE_PRIVATE).edit();
+        editor.putInt(PreferenceKeys.ID_CURREN_ALARM, alarmId)
                 .commit();
-    
-        
-    }*/
+    }
 
     /**
-     * Read alarm time from sharedPreference
+     * Read saved alarm time from sharedPreference
+     * @return Id of alarm time
      */
- /*   private void readSavedAlarmList(){
-        SharedPreferences sp = this.getSharedPreferences(this.getLocalClassName(), Context.MODE_PRIVATE);
-        tvAlarmTime.setText(sp.getString(SP_ALARM_TIME, null));
-    }*/
+    private int readSavedAlarm(){
+        SharedPreferences sharedPreferences = this.getSharedPreferences(PreferenceKeys.SHARE_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(PreferenceKeys.ID_CURREN_ALARM, ALARM_NOT_SET);
+    }
 
+    /**
+     * Set current alarm time on TextView
+     * @param alarm
+     */
+    private void setAlarmTimeOnTextView(Alarm alarm) {
+        final Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, alarm.hour);
+        cal.set(Calendar.MINUTE, alarm.minutes);
+        tvAlarmTime.setText(Alarms.formatTime(this, cal));
+    }
 }

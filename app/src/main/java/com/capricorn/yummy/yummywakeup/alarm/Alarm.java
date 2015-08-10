@@ -220,8 +220,7 @@ public final class Alarm implements Parcelable {
         unlockType = p.readInt();
     }
 
-    // Creates a default alarm at the current time.
-    //创建一个默认当前时间的闹钟
+    // Creates a default alarm at the current time
     public Alarm() {
         id = -1;
         Calendar c = Calendar.getInstance();
@@ -233,7 +232,6 @@ public final class Alarm implements Parcelable {
         alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         unlockType = AlarmUnlockType.Normal.value;
     }
-    
 
     public String getLabelOrDefault(Context context) {
         if (label == null || label.length() == 0) {
@@ -242,9 +240,7 @@ public final class Alarm implements Parcelable {
         return label;
     }
 
-
     // create the enum with static values
-
     public enum AlarmUnlockType {
 
         Normal(1),
