@@ -589,6 +589,7 @@ public class Alarms {
      * format "Alarm set for 2 days 7 hours and 53 minutes from
      * now"
      */
+    // ToDo should be in ToastMaster. And also, many functions need to be in utils
     public static String formatToast(Context context, long timeInMillis) {
         long delta = timeInMillis - System.currentTimeMillis();
         long hours = delta / (1000 * 60 * 60);

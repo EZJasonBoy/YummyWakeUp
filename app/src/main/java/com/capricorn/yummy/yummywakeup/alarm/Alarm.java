@@ -266,14 +266,14 @@ public final class Alarm implements Parcelable {
 
     /*
      * Days of week code as a single int.
-     * 0x00: no day
-     * 0x01: Monday
-     * 0x02: Tuesday
-     * 0x04: Wednesday
-     * 0x08: Thursday
-     * 0x10: Friday
-     * 0x20: Saturday
-     * 0x40: Sunday
+     * 0x00: no day    00000000  0
+     * 0x01: Monday    00000001  1
+     * 0x02: Tuesday   00000010  2
+     * 0x04: Wednesday 00000100  4
+     * 0x08: Thursday  00001000  8
+     * 0x10: Friday    00010000 16
+     * 0x20: Saturday  00100000 32
+     * 0x40: Sunday    01000000 64
      */
     public static final class DaysOfWeek {
 
@@ -288,6 +288,7 @@ public final class Alarm implements Parcelable {
         };
 
         // Bitmask of all repeating days
+        // 0000 0101 = 5 means Monday & Wednesday
         private int mDays;
 
         public DaysOfWeek(int days) {
@@ -297,25 +298,26 @@ public final class Alarm implements Parcelable {
         public String toString(Context context, boolean showNever) {
             StringBuilder ret = new StringBuilder();
 
-            // no days
+            // No days
             if (mDays == 0) {
                 return showNever ?
                         context.getText(R.string.never).toString() : "";
             }
 
-            // every day
+            // Every day
             if (mDays == 0x7f) {
                 return context.getText(R.string.every_day).toString();
             }
 
-            // count selected days
+            // Count selected days. For exemple, Wednesday & Friday 00010100.
+            // So it exists two 1 in mDays. dayCount = 2.
             int dayCount = 0, days = mDays;
             while (days > 0) {
                 if ((days & 1) == 1) dayCount++;
                 days >>= 1;
             }
 
-            // short or long form?
+            // Full or abbreviated name of the day
             DateFormatSymbols dfs = new DateFormatSymbols();
             String[] dayList = (dayCount > 1) ?
                     dfs.getShortWeekdays() :
@@ -333,10 +335,20 @@ public final class Alarm implements Parcelable {
             return ret.toString();
         }
 
+        /**
+         * Check whether a day is set
+         * @param day
+         * @return
+         */
         private boolean isSet(int day) {
             return ((mDays & (1 << day)) > 0);
         }
 
+        /**
+         * Set or unset a day by boolean
+         * @param day ex. Monday = 1
+         * @param set ture/set false/unset
+         */
         public void set(int day, boolean set) {
             if (set) {
                 mDays |= (1 << day);
@@ -353,7 +365,10 @@ public final class Alarm implements Parcelable {
             return mDays;
         }
 
-        // Returns days of week encoded in an array of booleans.
+        /**
+         * Returns days of week encoded in an array of booleans.
+         * @return Array of booleans to present days of week
+         */
         public boolean[] getBooleanArray() {
             boolean[] ret = new boolean[7];
             for (int i = 0; i < 7; i++) {
@@ -362,6 +377,10 @@ public final class Alarm implements Parcelable {
             return ret;
         }
 
+        /**
+         * Check whether repeat is set
+         * @return
+         */
         public boolean isRepeatSet() {
             return mDays != 0;
         }
@@ -374,7 +393,7 @@ public final class Alarm implements Parcelable {
             if (mDays == 0) {
                 return -1;
             }
-
+            // ToDo why + 5 here
             int today = (c.get(Calendar.DAY_OF_WEEK) + 5) % 7;
 
             int day = 0;
