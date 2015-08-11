@@ -86,6 +86,9 @@ public class Alarms {
 
     /**
      * Creates a new Alarm and fills in the given alarm's id.
+     * @param context
+     * @param alarm
+     * @return alarm ID
      */
     public static int addAlarm(Context context, Alarm alarm) {
         ContentValues values = createContentValues(alarm);
@@ -98,8 +101,7 @@ public class Alarms {
             clearSnoozeIfNeeded(context, timeInMillis);
         }
         setNextAlert(context);
-        
-        
+
         return alarm.id;
     }
 
@@ -587,6 +589,7 @@ public class Alarms {
      * format "Alarm set for 2 days 7 hours and 53 minutes from
      * now"
      */
+    // ToDo should be in ToastMaster. And also, many functions need to be in utils
     public static String formatToast(Context context, long timeInMillis) {
         long delta = timeInMillis - System.currentTimeMillis();
         long hours = delta / (1000 * 60 * 60);

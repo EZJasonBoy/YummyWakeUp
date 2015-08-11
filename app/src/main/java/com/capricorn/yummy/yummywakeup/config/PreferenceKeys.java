@@ -6,8 +6,10 @@ package com.capricorn.yummy.yummywakeup.config;
  */
 public class PreferenceKeys {
 
-    public final static String SHARE_NAME = "yummywakeup_share_preference";
-    public final static String PREF_CURREN_ALARM_ID = "snooze_id";
+    // Share preference name
+    public final static String SHARE_PREF_NAME = "yummywakeup_share_preference";
+    // ID to save current alarm
+    public final static String ID_CURREN_ALARM = "snooze_id";
    /* public final static String PREF_SNOOZE_TIME = "snooze_time";
     public final static String PREF_SNOOZE_ID = "snooze_id";*/
     
