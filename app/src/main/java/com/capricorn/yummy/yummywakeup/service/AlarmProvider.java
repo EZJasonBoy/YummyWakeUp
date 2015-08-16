@@ -30,7 +30,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.capricorn.yummy.yummywakeup.alarm.Alarm;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
 
 public class AlarmProvider extends ContentProvider {
     private SQLiteOpenHelper mOpenHelper;

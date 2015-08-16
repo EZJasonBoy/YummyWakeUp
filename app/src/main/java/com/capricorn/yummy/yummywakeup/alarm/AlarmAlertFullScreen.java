@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.service.AlarmReceiver;
 
 import java.util.Calendar;

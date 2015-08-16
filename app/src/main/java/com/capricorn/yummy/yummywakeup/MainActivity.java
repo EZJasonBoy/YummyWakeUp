@@ -13,10 +13,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.capricorn.yummy.yummywakeup.alarm.Alarm;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.alarm.Alarms;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
-import com.capricorn.yummy.yummywakeup.model.Time;
+import com.capricorn.yummy.yummywakeup.model.CurrentTime;
 
 import java.util.Calendar;
 
@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
 
     private Handler timeHandler = new Handler(){
         public void handleMessage(Message msg) {
-            refreshTime();
+            RefreshCurrentTime();
             timeHandler.sendEmptyMessageDelayed(0, 1000); // Update time Every one second
         }
     };
@@ -89,9 +89,9 @@ public class MainActivity extends Activity {
     /**
      * Refresh time shown on TextView
      */
-    private void refreshTime() {
+    private void RefreshCurrentTime() {
         Calendar c = Calendar.getInstance();
-        Time currentTime = new Time(c.getTimeInMillis());
+        CurrentTime currentTime = new CurrentTime(c.getTimeInMillis());
         // Update time shown on TextView
         tvCurrentTime.setText(currentTime.getTimeLabel());
         tvWeekMonthDay.setText(currentTime.getWeekMonthDayLabel());

@@ -22,16 +22,19 @@ import android.content.DialogInterface;
 import android.preference.ListPreference;
 import android.util.AttributeSet;
 
+import com.capricorn.yummy.yummywakeup.model.Alarm;
+import com.capricorn.yummy.yummywakeup.model.DaysOfWeek;
+
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 public class RepeatPreference extends ListPreference {
 
     // Initial value that can be set with the values saved in the database.
-    private Alarm.DaysOfWeek mDaysOfWeek = new Alarm.DaysOfWeek(0);
+    private DaysOfWeek mDaysOfWeek = new DaysOfWeek(0);
     // New value that will be set if a positive result comes back from the
     // dialog.
-    private Alarm.DaysOfWeek mNewDaysOfWeek = new Alarm.DaysOfWeek(0);
+    private DaysOfWeek mNewDaysOfWeek = new DaysOfWeek(0);
 
     public RepeatPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -74,13 +77,13 @@ public class RepeatPreference extends ListPreference {
                 });
     }
 
-    public void setDaysOfWeek(Alarm.DaysOfWeek dow) {
+    public void setDaysOfWeek(DaysOfWeek dow) {
         mDaysOfWeek.set(dow);
         mNewDaysOfWeek.set(dow);
         setSummary(dow.toString(getContext(), true));
     }
 
-    public Alarm.DaysOfWeek getDaysOfWeek() {
+    public DaysOfWeek getDaysOfWeek() {
         return mDaysOfWeek;
     }
 }

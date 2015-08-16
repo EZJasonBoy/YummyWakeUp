@@ -27,7 +27,7 @@ import android.os.Parcel;
 import android.util.Log;
 
 import com.capricorn.yummy.yummywakeup.R;
-import com.capricorn.yummy.yummywakeup.alarm.Alarm;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.alarm.AlarmAlert;
 import com.capricorn.yummy.yummywakeup.alarm.AlarmAlertFullScreen;
 import com.capricorn.yummy.yummywakeup.alarm.AlarmAlertWakeLock;

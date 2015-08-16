@@ -18,6 +18,8 @@ import android.util.Log;
 
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
+import com.capricorn.yummy.yummywakeup.model.DaysOfWeek;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -532,8 +534,7 @@ public class Alarms {
      * Given an alarm in hours and minutes, return a time suitable for
      * setting in AlarmManager.
      */
-    static Calendar calculateAlarm(int hour, int minute,
-            Alarm.DaysOfWeek daysOfWeek) {
+    static Calendar calculateAlarm(int hour, int minute, DaysOfWeek daysOfWeek) {
 
         // start with now
         Calendar c = Calendar.getInstance();
@@ -557,8 +558,7 @@ public class Alarms {
         return c;
     }
 
-    static String formatTime(final Context context, int hour, int minute,
-                             Alarm.DaysOfWeek daysOfWeek) {
+    static String formatTime(final Context context, int hour, int minute, DaysOfWeek daysOfWeek) {
         Calendar c = calculateAlarm(hour, minute, daysOfWeek);
         return formatTime(context, c);
     }
