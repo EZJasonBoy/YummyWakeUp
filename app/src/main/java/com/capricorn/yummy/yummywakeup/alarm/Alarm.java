@@ -340,7 +340,7 @@ public final class Alarm implements Parcelable {
          * @param day
          * @return
          */
-        private boolean isSet(int day) {
+        public boolean isSet(int day) {
             return ((mDays & (1 << day)) > 0);
         }
 

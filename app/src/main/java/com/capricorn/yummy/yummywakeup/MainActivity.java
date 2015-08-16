@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -25,6 +26,15 @@ public class MainActivity extends Activity {
     private TextView tvWeekMonthDay;
     private TextView tvAlarmTime;
 
+    private Button btnMonday;
+    private Button btnTuesday;
+    private Button btnWednesday;
+    private Button btnThursday;
+    private Button btnFriday;
+    private Button btnSaturday;
+    private Button btnSunday;
+
+    private Alarm alarm;
     private int alarmId;
 
     private final static int ALARM_NOT_SET = -1;
@@ -34,14 +44,39 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tvCurrentTime = (TextView) findViewById(R.id.tv_curentTime);
+        tvCurrentTime  = (TextView) findViewById(R.id.tv_curentTime);
         tvWeekMonthDay = (TextView) findViewById(R.id.tv_week_month_day);
-        // Start to show current time
-        timeHandler.sendEmptyMessage(0);
+        tvAlarmTime    = (TextView) findViewById(R.id.tv_alarmTime);
 
-        tvAlarmTime = (TextView) findViewById(R.id.tv_alarmTime);
+        btnMonday    = (Button) findViewById(R.id.btn_monday);
+        btnTuesday   = (Button) findViewById(R.id.btn_tuesday);
+        btnWednesday = (Button) findViewById(R.id.btn_wednesday);
+        btnThursday  = (Button) findViewById(R.id.btn_thursday);
+        btnFriday    = (Button) findViewById(R.id.btn_friday);
+        btnSaturday  = (Button) findViewById(R.id.btn_saturday);
+        btnSunday    = (Button) findViewById(R.id.btn_sunday);
 
         initAlarm();
+    }
+
+    private void initAlarm(){
+        // Start to show current time
+        timeHandler.sendEmptyMessage(0);
+        // Read saved alarm time from sharedPreference
+        alarmId = readSavedAlarm();
+
+        if (alarmId == ALARM_NOT_SET){
+            // If no alarm available, set a default alarm with current time
+            alarm = new Alarm();
+            // Set alarm time on TextView
+            setAlarmTimeOnTextView(alarm);
+            alarmId = Alarms.addAlarm(this, alarm);
+            saveAlarm();
+        }else {
+            alarm = Alarms.getAlarm(getContentResolver(), alarmId);
+            setAlarmTimeOnTextView(alarm);
+        }
+        initRepeat();
     }
 
     private Handler timeHandler = new Handler(){
@@ -74,7 +109,7 @@ public class MainActivity extends Activity {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-                Alarm alarm = new Alarm();
+                alarm = new Alarm();
                 alarm.id = alarmId;
                 alarm.enabled = true;
                 alarm.hour = hourOfDay;
@@ -90,23 +125,6 @@ public class MainActivity extends Activity {
                 setAlarmTimeOnTextView(alarm);
             }
         },c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
-    }
-
-    private void initAlarm(){
-        // Read saved alarm time from sharedPreference
-        alarmId = readSavedAlarm();
-        
-        if (alarmId == ALARM_NOT_SET){
-            // If no alarm available, set a default alarm with current time
-            Alarm alarm = new Alarm();
-            // Set alarm time on TextView
-            setAlarmTimeOnTextView(alarm);
-            alarmId = Alarms.addAlarm(this, alarm);
-            saveAlarm();
-        }else {
-            Alarm alarm = Alarms.getAlarm(getContentResolver(), alarmId);
-            setAlarmTimeOnTextView(alarm);
-        }
     }
 
     /**
@@ -136,5 +154,53 @@ public class MainActivity extends Activity {
         cal.set(Calendar.HOUR_OF_DAY, alarm.hour);
         cal.set(Calendar.MINUTE, alarm.minutes);
         tvAlarmTime.setText(Alarms.formatTime(this, cal));
+    }
+
+    /**
+     * Listenr for the repeat buttons (Monday, Tuesday and so on)
+     * @param view
+     */
+    private void setRepeat(View view) {
+        switch (view.getId()) {
+            case R.id.btn_monday:
+                alarm.daysOfWeek.set(1, view.isPressed());
+                break;
+            case R.id.btn_tuesday:
+                alarm.daysOfWeek.set(2, view.isPressed());
+                break;
+            case R.id.btn_wednesday:
+                alarm.daysOfWeek.set(4, view.isPressed());
+                break;
+            case R.id.btn_thursday:
+                alarm.daysOfWeek.set(8, view.isPressed());
+                break;
+            case R.id.btn_friday:
+                alarm.daysOfWeek.set(16, view.isPressed());
+                break;
+            case R.id.btn_saturday:
+                alarm.daysOfWeek.set(32, view.isPressed());
+                break;
+            case R.id.btn_sunday:
+                alarm.daysOfWeek.set(64, view.isPressed());
+                break;
+            default:
+                break;
+        }
+        Alarms.setAlarm(MainActivity.this, alarm);
+    }
+
+    /**
+     * Init repeat buttons' status
+     */
+    private void initRepeat() {
+        if(alarm.daysOfWeek.isRepeatSet()){
+            btnMonday.setPressed(alarm.daysOfWeek.isSet(1));
+            btnTuesday.setPressed(alarm.daysOfWeek.isSet(2));
+            btnWednesday.setPressed(alarm.daysOfWeek.isSet(4));
+            btnThursday.setPressed(alarm.daysOfWeek.isSet(8));
+            btnFriday.setPressed(alarm.daysOfWeek.isSet(16));
+            btnSaturday.setPressed(alarm.daysOfWeek.isSet(32));
+            btnSunday.setPressed(alarm.daysOfWeek.isSet(64));
+        }
     }
 }

@@ -76,58 +76,72 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/btn_monday"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="@drawable/btn_selector"
             android:textColor="@color/color_3"
+            android:onClick="setRepeat"
             android:text="M" />
 
         <Button
+            android:id="@+id/btn_tuesday"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_selector"
             android:textColor="@color/color_3"
+            android:onClick="setRepeat"
             android:text="T" />
 
         <Button
+            android:id="@+id/btn_wednesday"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_selector"
             android:textColor="@color/color_3"
+            android:onClick="setRepeat"
             android:text="W" />
 
         <Button
+            android:id="@+id/btn_thursday"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_selector"
             android:textColor="@color/color_3"
+            android:onClick="setRepeat"
             android:text="T" />
 
         <Button
+            android:id="@+id/btn_friday"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_selector"
             android:textColor="@color/color_3"
+            android:onClick="setRepeat"
             android:text="F" />
 
         <Button
+            android:id="@+id/btn_saturday"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/btn_selector"
             android:textColor="@color/color_3"
+            android:onClick="setRepeat"
             android:text="S" />
 
         <Button
+            android:id="@+id/btn_sunday"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_selector"
             android:textColor="@color/color_3"
+            android:onClick="setRepeat"
             android:text="W" />
 
     </LinearLayout>
