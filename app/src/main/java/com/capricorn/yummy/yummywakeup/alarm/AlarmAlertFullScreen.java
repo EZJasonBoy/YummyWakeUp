@@ -37,7 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capricorn.yummy.yummywakeup.R;
-import com.capricorn.yummy.yummywakeup.config.Constants;
+import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
 import com.capricorn.yummy.yummywakeup.service.AlarmReceiver;
 
 import java.util.Calendar;
@@ -107,7 +107,7 @@ public class AlarmAlertFullScreen extends Activity {
         // Get the volume/camera button behavior setting
         final String vol =
                 PreferenceManager.getDefaultSharedPreferences(this)
-                .getString(Constants.KEY_VOLUME_BEHAVIOR,
+                .getString(PreferenceKeys.KEY_VOLUME_BEHAVIOR,
                         DEFAULT_VOLUME_BEHAVIOR);
         mVolumeBehavior = Integer.parseInt(vol);
 
@@ -175,7 +175,7 @@ public class AlarmAlertFullScreen extends Activity {
         }
         final String snooze =
                 PreferenceManager.getDefaultSharedPreferences(this)
-                .getString(Constants.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE);
+                .getString(PreferenceKeys.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE);
         int snoozeMinutes = Integer.parseInt(snooze);
 
         final long snoozeTime = System.currentTimeMillis()

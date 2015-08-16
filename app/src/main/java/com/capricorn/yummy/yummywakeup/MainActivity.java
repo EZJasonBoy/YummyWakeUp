@@ -1,11 +1,9 @@
 package com.capricorn.yummy.yummywakeup;
 
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -83,18 +81,7 @@ public class MainActivity extends Activity {
                 alarm.minutes = minute;
                 alarm.label = "闹钟 巴拉拉";
 
-                long time;
-                if (alarm.id == ALARM_NOT_SET) {
-                    // ToDo Not possible to go into this bloc
-                    // Is time here the Id of alarm?
-                    // If alarm not set yet, set a new alarm
-                    time = Alarms.addAlarm(MainActivity.this, alarm);
-                    // addAlarm populates the alarm with the new id. Update mId so that
-                    // changes to other preferences update the new alarm.
-                    alarmId = alarm.id;
-                } else {
-                    time = Alarms.setAlarm(MainActivity.this, alarm);
-                }
+                long time = Alarms.setAlarm(MainActivity.this, alarm);
 
                 Toast.makeText(MainActivity.this,
                         Alarms.formatToast(MainActivity.this, time),
@@ -103,7 +90,6 @@ public class MainActivity extends Activity {
                 setAlarmTimeOnTextView(alarm);
             }
         },c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
-        // ToDo why not save here?
     }
 
     private void initAlarm(){
@@ -119,7 +105,7 @@ public class MainActivity extends Activity {
             saveAlarm();
         }else {
             Alarm alarm = Alarms.getAlarm(getContentResolver(), alarmId);
-            tvAlarmTime.setText("" + alarm.hour + ":" + alarm.minutes);
+            setAlarmTimeOnTextView(alarm);
         }
     }
 
@@ -128,7 +114,7 @@ public class MainActivity extends Activity {
      */
     private void saveAlarm() {
         SharedPreferences.Editor editor = this.getSharedPreferences(PreferenceKeys.SHARE_PREF_NAME, Context.MODE_PRIVATE).edit();
-        editor.putInt(PreferenceKeys.ID_CURREN_ALARM, alarmId)
+        editor.putInt(PreferenceKeys.KEY_ALARM_ID, alarmId)
                 .commit();
     }
 
@@ -138,7 +124,7 @@ public class MainActivity extends Activity {
      */
     private int readSavedAlarm(){
         SharedPreferences sharedPreferences = this.getSharedPreferences(PreferenceKeys.SHARE_PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getInt(PreferenceKeys.ID_CURREN_ALARM, ALARM_NOT_SET);
+        return sharedPreferences.getInt(PreferenceKeys.KEY_ALARM_ID, ALARM_NOT_SET);
     }
 
     /**

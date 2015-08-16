@@ -17,7 +17,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.capricorn.yummy.yummywakeup.R;
-import com.capricorn.yummy.yummywakeup.config.Constants;
+import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,9 +74,6 @@ public class Alarms {
     // list of alarms.
     public static final String ALARM_ID = "alarm_id";
 
-    final static String PREF_SNOOZE_ID = "snooze_id";
-    final static String PREF_SNOOZE_TIME = "snooze_time";
-
     private final static String DM12 = "E h:mm aa";
     private final static String DM24 = "E k:mm";
 
@@ -128,15 +125,18 @@ public class Alarms {
      */
     public static Cursor getAlarmsCursor(ContentResolver contentResolver) {
         return contentResolver.query(
-                Alarm.Columns.CONTENT_URI, Alarm.Columns.ALARM_QUERY_COLUMNS,
+                Alarm.Columns.CONTENT_URI,
+                Alarm.Columns.ALARM_QUERY_COLUMNS,
                 null, null, Alarm.Columns.DEFAULT_SORT_ORDER);
     }
 
     // Private method to get a more limited set of alarms from the database.
     private static Cursor getFilteredAlarmsCursor(
             ContentResolver contentResolver) {
-        return contentResolver.query(Alarm.Columns.CONTENT_URI,
-                Alarm.Columns.ALARM_QUERY_COLUMNS, Alarm.Columns.WHERE_ENABLED,
+        return contentResolver.query(
+                Alarm.Columns.CONTENT_URI,
+                Alarm.Columns.ALARM_QUERY_COLUMNS,
+                Alarm.Columns.WHERE_ENABLED,
                 null, null);
     }
 
@@ -168,18 +168,18 @@ public class Alarms {
         // If this alarm fires before the next snooze, clear the snooze to
         // enable this alarm.
         SharedPreferences prefs =
-                context.getSharedPreferences(Constants.PREFERENCES, 0);
-        long snoozeTime = prefs.getLong(PREF_SNOOZE_TIME, 0);
+                context.getSharedPreferences(PreferenceKeys.SHARE_PREF_NAME, 0);
+        long snoozeTime = prefs.getLong(PreferenceKeys.KEY_ALARM_TIME, 0);
         if (alarmTime < snoozeTime) {
             clearSnoozePreference(context, prefs);
         }
     }
-    
-    
 
     /**
-     * Return an Alarm object representing the alarm id in the database.
-     * Returns null if no alarm exists.
+     * Return an Alarm object stored in the database with the given alarm id.
+     * @param contentResolver
+     * @param alarmId
+     * @return Alarm object. Null if no alarm exists
      */
     public static Alarm getAlarm(ContentResolver contentResolver, int alarmId) {
         Cursor cursor = contentResolver.query(
@@ -195,11 +195,15 @@ public class Alarms {
         }
         return alarm;
     }
-    
-    
+
+    /**
+     * Returns a list of all Alarms
+     * @param contentResolver
+     * @return list of Alarms
+     */
     public static List<Alarm> getAllAlarms(ContentResolver contentResolver){
 
-        List<Alarm> alarms = new ArrayList<>();
+        List<Alarm> alarms = new ArrayList<Alarm>();
 
         Cursor cursor = contentResolver.query(
                 Alarm.Columns.CONTENT_URI,
@@ -212,7 +216,7 @@ public class Alarms {
                 alarms.add(alarm);
                 // A time of 0 means this alarm repeats. If the time is
                 // non-zero, check if the time is before now.
-         
+                //Todo Why?
             } while (cursor.moveToNext());
         }
         cursor.close();
@@ -259,7 +263,6 @@ public class Alarms {
      * @param id             corresponds to the _id column
      * @param enabled        corresponds to the ENABLED column
      */
-
     public static void enableAlarm(
             final Context context, final int id, boolean enabled) {
         enableAlarmInternal(context, id, enabled);
@@ -352,7 +355,7 @@ public class Alarms {
 
     /**
      * Called at system startup, on time/timezone change, and whenever
-     * the user changes alarm settings.  Activates snooze if set,
+     * the user changes alarm settings. Activates snooze if set,
      * otherwise loads all alarms, activates next alert.
      */
     public static void setNextAlert(final Context context) {
@@ -427,16 +430,22 @@ public class Alarms {
         saveNextAlarm(context, "");
     }
 
+    /**
+     *
+     * @param context
+     * @param id
+     * @param time
+     */
     public static void saveSnoozeAlert(final Context context, final int id,
                                        final long time) {
         SharedPreferences prefs = context.getSharedPreferences(
-                Constants.PREFERENCES, 0);
+                PreferenceKeys.SHARE_PREF_NAME, 0);
         if (id == -1) {
             clearSnoozePreference(context, prefs);
         } else {
             SharedPreferences.Editor ed = prefs.edit();
-            ed.putInt(PREF_SNOOZE_ID, id);
-            ed.putLong(PREF_SNOOZE_TIME, time);
+            ed.putInt(PreferenceKeys.KEY_ALARM_ID, id);
+            ed.putLong(PreferenceKeys.KEY_ALARM_TIME, time);
             ed.apply();
         }
         // Set the next alert after updating the snooze.
@@ -448,8 +457,8 @@ public class Alarms {
      */
     public static void disableSnoozeAlert(final Context context, final int id) {
         SharedPreferences prefs = context.getSharedPreferences(
-                Constants.PREFERENCES, 0);
-        int snoozeId = prefs.getInt(PREF_SNOOZE_ID, -1);
+                PreferenceKeys.SHARE_PREF_NAME, 0);
+        int snoozeId = prefs.getInt(PreferenceKeys.KEY_ALARM_ID, -1);
         if (snoozeId == -1) {
             // No snooze set, do nothing.
             return;
@@ -464,7 +473,7 @@ public class Alarms {
     // the window shade.
     private static void clearSnoozePreference(final Context context,
             final SharedPreferences prefs) {
-        final int alarmId = prefs.getInt(PREF_SNOOZE_ID, -1);
+        final int alarmId = prefs.getInt(PreferenceKeys.KEY_ALARM_ID, -1);
         if (alarmId != -1) {
             NotificationManager nm = (NotificationManager)
                     context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -472,8 +481,8 @@ public class Alarms {
         }
 
         final SharedPreferences.Editor ed = prefs.edit();
-        ed.remove(PREF_SNOOZE_ID);
-        ed.remove(PREF_SNOOZE_TIME);
+        ed.remove(PreferenceKeys.KEY_ALARM_ID);
+        ed.remove(PreferenceKeys.KEY_ALARM_TIME);
         ed.apply();
     };
 
@@ -483,13 +492,13 @@ public class Alarms {
      */
     private static boolean enableSnoozeAlert(final Context context) {
         SharedPreferences prefs = context.getSharedPreferences(
-                Constants.PREFERENCES, 0);
+                PreferenceKeys.SHARE_PREF_NAME, 0);
 
-        int id = prefs.getInt(PREF_SNOOZE_ID, -1);
+        int id = prefs.getInt(PreferenceKeys.KEY_ALARM_ID, -1);
         if (id == -1) {
             return false;
         }
-        long time = prefs.getLong(PREF_SNOOZE_TIME, -1);
+        long time = prefs.getLong(PreferenceKeys.KEY_ALARM_TIME, -1);
 
         // Get the alarm from the db.
         final Alarm alarm = getAlarm(context.getContentResolver(), id);

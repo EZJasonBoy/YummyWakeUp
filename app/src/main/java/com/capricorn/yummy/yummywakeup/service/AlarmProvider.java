@@ -71,8 +71,7 @@ public class AlarmProvider extends ContentProvider {
             String insertMe = "INSERT INTO alarms " +
                     "(hour, minutes, daysofweek, alarmtime, enabled, vibrate, message, unlock_type ,alert) " +
                     "VALUES ";
-            db.execSQL(insertMe + "(8, 30, 31, 0, 0, 1, '', 1, '');");
-            db.execSQL(insertMe + "(9, 00, 96, 0, 0, 1, '', 1, '');");
+            // ToDo
         }
 
         @Override
