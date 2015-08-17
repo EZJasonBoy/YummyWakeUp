@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -34,6 +36,9 @@ public class MainActivity extends Activity {
     private Button btnSaturday;
     private Button btnSunday;
 
+    private Switch swAlarm;
+    private Switch swVibrate;
+
     private Alarm alarm;
     private int alarmId;
 
@@ -56,10 +61,19 @@ public class MainActivity extends Activity {
         btnSaturday  = (Button) findViewById(R.id.btn_saturday);
         btnSunday    = (Button) findViewById(R.id.btn_sunday);
 
+        swAlarm = (Switch) findViewById(R.id.sw_alarm);
+        swVibrate = (Switch) findViewById(R.id.sw_vibrate);
+
         initAlarm();
+        initRepeat();
+        initSwitch();
+        initListener();
     }
 
-    private void initAlarm(){
+    /**
+     * Init alarm
+     */
+    private void initAlarm() {
         // Start to show current time
         timeHandler.sendEmptyMessage(0);
         // Read saved alarm time from sharedPreference
@@ -76,7 +90,57 @@ public class MainActivity extends Activity {
             alarm = Alarms.getAlarm(getContentResolver(), alarmId);
             setAlarmTimeOnTextView(alarm);
         }
-        initRepeat();
+    }
+
+    /**
+     * Init repeat buttons' status
+     */
+    private void initRepeat() {
+        if(alarm.daysOfWeek.isRepeatSet()){
+            btnMonday.setPressed(alarm.daysOfWeek.isSet(1));
+            btnTuesday.setPressed(alarm.daysOfWeek.isSet(2));
+            btnWednesday.setPressed(alarm.daysOfWeek.isSet(4));
+            btnThursday.setPressed(alarm.daysOfWeek.isSet(8));
+            btnFriday.setPressed(alarm.daysOfWeek.isSet(16));
+            btnSaturday.setPressed(alarm.daysOfWeek.isSet(32));
+            btnSunday.setPressed(alarm.daysOfWeek.isSet(64));
+        }
+    }
+
+    /**
+     * Init switch status when start app
+     */
+    private void initSwitch() {
+        if(alarm.enabled) swAlarm.setChecked(true);
+        if(alarm.vibrate) swVibrate.setChecked(true);
+    }
+
+    /**
+     * Set listeners for switch alarm and switch vibrate
+     */
+    private void initListener() {
+        // Set alarm switch
+        swAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Alarms.setAlarm(MainActivity.this, alarm);
+                } else {
+                    Alarms.deleteAlarm(MainActivity.this, alarm);
+                }
+            }
+        });
+        // Set vibrate switch
+        swVibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    // ToDo Set vibrate
+                }else{
+                    // ToDo Unset vibrate
+                }
+            }
+        });
     }
 
     private Handler timeHandler = new Handler(){
@@ -187,20 +251,5 @@ public class MainActivity extends Activity {
                 break;
         }
         Alarms.setAlarm(MainActivity.this, alarm);
-    }
-
-    /**
-     * Init repeat buttons' status
-     */
-    private void initRepeat() {
-        if(alarm.daysOfWeek.isRepeatSet()){
-            btnMonday.setPressed(alarm.daysOfWeek.isSet(1));
-            btnTuesday.setPressed(alarm.daysOfWeek.isSet(2));
-            btnWednesday.setPressed(alarm.daysOfWeek.isSet(4));
-            btnThursday.setPressed(alarm.daysOfWeek.isSet(8));
-            btnFriday.setPressed(alarm.daysOfWeek.isSet(16));
-            btnSaturday.setPressed(alarm.daysOfWeek.isSet(32));
-            btnSunday.setPressed(alarm.daysOfWeek.isSet(64));
-        }
     }
 }

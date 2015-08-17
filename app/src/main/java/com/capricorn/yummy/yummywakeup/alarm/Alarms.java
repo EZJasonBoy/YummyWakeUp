@@ -105,7 +105,7 @@ public class Alarms {
     }
 
     /**
-     * Removes an existing Alarm.  If this alarm is snoozing, disables
+     * Removes an existing Alarm by its id.  If this alarm is snoozing, disables
      * snooze.  Sets next alert.
      */
     public static void deleteAlarm(Context context, int alarmId) {
@@ -119,6 +119,14 @@ public class Alarms {
         contentResolver.delete(uri, "", null);
 
         setNextAlert(context);
+    }
+
+    /**
+     * Removes an existing Alarm.  If this alarm is snoozing, disables
+     * snooze.  Sets next alert.
+     */
+    public static void deleteAlarm(Context context, Alarm alarm) {
+        deleteAlarm(context, alarm.id);
     }
 
     /**
