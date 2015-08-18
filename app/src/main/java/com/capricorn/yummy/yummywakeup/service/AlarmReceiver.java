@@ -123,7 +123,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent closeDialogs = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         context.sendBroadcast(closeDialogs);
 
-
         /**
          * 判断时候为锁屏状态，如果是锁屏，则Activity为AlarmAlertFullScreen
          */

@@ -237,6 +237,11 @@ public final class Alarm implements Parcelable {
         unlockType = AlarmUnlockType.Normal.value;
     }
 
+    /**
+     * Sets default label if it is not set
+     * @param context
+     * @return label of alarm
+     */
     public String getLabelOrDefault(Context context) {
         if (label == null || label.length() == 0) {
             return context.getString(R.string.default_label);
@@ -245,7 +250,7 @@ public final class Alarm implements Parcelable {
     }
 
     /**
-     * create the enum with static values
+     * Creates the enum with static values
      */
     public enum AlarmUnlockType {
 

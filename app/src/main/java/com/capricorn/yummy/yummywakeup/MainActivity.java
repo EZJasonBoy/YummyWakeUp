@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -179,6 +180,7 @@ public class MainActivity extends Activity {
                 alarm.hour = hourOfDay;
                 alarm.minutes = minute;
                 alarm.label = "闹钟 巴拉拉";
+                alarm.unlockType = Alarm.AlarmUnlockType.Normal.value();
 
                 long time = Alarms.setAlarm(MainActivity.this, alarm);
 
@@ -224,7 +226,7 @@ public class MainActivity extends Activity {
      * Listenr for the repeat buttons (Monday, Tuesday and so on)
      * @param view
      */
-    private void setRepeat(View view) {
+    public void setRepeat(View view) {
         switch (view.getId()) {
             case R.id.btn_monday:
                 alarm.daysOfWeek.set(1, view.isPressed());
