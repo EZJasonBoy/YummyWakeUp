@@ -127,12 +127,13 @@ public class AlarmReceiver extends BroadcastReceiver {
          * 判断时候为锁屏状态，如果是锁屏，则Activity为AlarmAlertFullScreen
          */
         // Decide which activity to start based on the state of the keyguard.
-        Class c = AlarmAlert.class;
+        //YummyTime的设计是闹钟执行时弹出全屏界面
+        Class clas /*= AlarmAlert.class*/  = AlarmAlertFullScreen.class;
         KeyguardManager km = (KeyguardManager) context.getSystemService(
                 Context.KEYGUARD_SERVICE);
         if (km.inKeyguardRestrictedInputMode()) {
             // Use the full screen activity for security.
-            c = AlarmAlertFullScreen.class;
+            clas = AlarmAlertFullScreen.class;
         }
 
         /**
@@ -172,7 +173,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // NEW: Embed the full-screen UI here. The notification manager will
         // take care of displaying it if it's OK to do so.
-        Intent alarmAlert = new Intent(context, c);
+        Intent alarmAlert = new Intent(context, clas);
         alarmAlert.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         alarmAlert.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
