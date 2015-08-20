@@ -16,7 +16,6 @@
 
 package com.capricorn.yummy.yummywakeup.alarm;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
@@ -28,6 +27,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -46,12 +46,13 @@ import com.capricorn.yummy.yummywakeup.service.AlarmReceiver;
 
 import java.util.Calendar;
 
+
 /**
  * Alarm Clock alarm alert: pops visible indicator and plays alarm
  * tone. This activity is the full screen version which shows over the lock
  * screen with the wallpaper as the background.
  */
-public class AlarmAlertFullScreen extends Activity {
+public class AlarmAlertFullScreen extends FragmentActivity implements NormalAlarm.OnAlarmAction {
 
     // These defaults must match the values in res/xml/settings.xml
     private static final String DEFAULT_SNOOZE = "10";
@@ -82,6 +83,7 @@ public class AlarmAlertFullScreen extends Activity {
 
     @Override
     protected void onCreate(Bundle icicle) {
+        requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
         super.onCreate(icicle);
         setContentView(R.layout.layout_test);
         Log.d("test", "alert on create");
@@ -100,6 +102,7 @@ public class AlarmAlertFullScreen extends Activity {
             Log.v("test","normal alarm");
             NormalAlarm normalAlarm = new NormalAlarm();
             fragmentTransaction.replace(R.id.fg_alarm, normalAlarm);
+            fragmentTransaction.commit();
         }else if (mAlarm.unlockType == Alarm.AlarmUnlockType.Calculation.value()){
             //计算
 
@@ -119,7 +122,6 @@ public class AlarmAlertFullScreen extends Activity {
                         DEFAULT_VOLUME_BEHAVIOR);
         mVolumeBehavior = Integer.parseInt(vol);
 
-        requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
 
         final Window win = getWindow();
         win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -313,5 +315,10 @@ public class AlarmAlertFullScreen extends Activity {
         // Don't allow back to dismiss. This method is overriden by AlarmAlert
         // so that the dialog is dismissed.
         return;
+    }
+
+    @Override
+    public void closeAlarm() {
+        dismiss(false);
     }
 }
