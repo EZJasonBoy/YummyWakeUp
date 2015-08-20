@@ -27,7 +27,7 @@ import android.os.Parcel;
 import android.util.Log;
 
 import com.capricorn.yummy.yummywakeup.R;
-import com.capricorn.yummy.yummywakeup.alarm.Alarm;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.alarm.AlarmAlert;
 import com.capricorn.yummy.yummywakeup.alarm.AlarmAlertFullScreen;
 import com.capricorn.yummy.yummywakeup.alarm.AlarmAlertWakeLock;
@@ -122,7 +122,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         /* Close dialogs and window shade */
         Intent closeDialogs = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         context.sendBroadcast(closeDialogs);
-
 
         /**
          * 判断时候为锁屏状态，如果是锁屏，则Activity为AlarmAlertFullScreen

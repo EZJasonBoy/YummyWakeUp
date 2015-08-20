@@ -36,7 +36,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.capricorn.yummy.yummywakeup.R;
-import com.capricorn.yummy.yummywakeup.alarm.Alarm;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.alarm.AlarmAlertWakeLock;
 import com.capricorn.yummy.yummywakeup.alarm.Alarms;
 

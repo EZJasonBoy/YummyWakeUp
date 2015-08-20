@@ -1,16 +1,18 @@
 package com.capricorn.yummy.yummywakeup.config;
 
 /**
- * Author SunMeng
- * Date : 2015 五月 08
+ * SharedPreference to save alarm ID which will be used to search alarm
+ * in SQLite
  */
 public class PreferenceKeys {
 
     // Share preference name
     public final static String SHARE_PREF_NAME = "yummywakeup_share_preference";
     // ID to save current alarm
-    public final static String ID_CURREN_ALARM = "snooze_id";
-   /* public final static String PREF_SNOOZE_TIME = "snooze_time";
-    public final static String PREF_SNOOZE_ID = "snooze_id";*/
-    
+    public final static String KEY_ALARM_ID = "alarm_id";
+    public final static String KEY_ALARM_TIME = "alarm_time";
+
+    public static final String KEY_VOLUME_BEHAVIOR = "alarm_volume";
+    public static final String KEY_ALARM_SNOOZE = "alarm_snooze";
+
 }

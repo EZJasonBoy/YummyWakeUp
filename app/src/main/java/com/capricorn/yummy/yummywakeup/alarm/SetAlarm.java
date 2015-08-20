@@ -37,6 +37,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.capricorn.yummy.yummywakeup.R;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
+import com.capricorn.yummy.yummywakeup.model.DaysOfWeek;
 
 /**
  * 管理每一个闹钟
@@ -58,7 +60,7 @@ public class SetAlarm extends PreferenceActivity
     private int     mHour;
     private int     mMinutes;
     private boolean mTimePickerCancelled;
-    private Alarm   mOriginalAlarm;
+    private Alarm mOriginalAlarm;
 
     /**
      * Set an alarm.  Requires an Alarms.ALARM_ID to be passed in as an
@@ -305,8 +307,7 @@ public class SetAlarm extends PreferenceActivity
      * Display a toast that tells the user how long until the alarm
      * goes off.  This helps prevent "am/pm" mistakes.
      */
-    static void popAlarmSetToast(Context context, int hour, int minute,
-                                 Alarm.DaysOfWeek daysOfWeek) {
+    static void popAlarmSetToast(Context context, int hour, int minute, DaysOfWeek daysOfWeek) {
         popAlarmSetToast(context,
                 Alarms.calculateAlarm(hour, minute, daysOfWeek)
                 .getTimeInMillis());

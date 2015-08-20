@@ -6,7 +6,7 @@ import java.util.Calendar;
  * Model to present current time
  * Created by Chuan on 8/4/2015.
  */
-public class Time {
+public class CurrentTime {
 
     private int hour;
     private int min;
@@ -17,7 +17,7 @@ public class Time {
     private String weekMonthDayLabel = ""; // Current Week, Month Day shown on TextView tv_week_month_day
     private Calendar date;
 
-    public Time(long time) {
+    public CurrentTime(long time) {
 
         date = Calendar.getInstance();
         date.setTimeInMillis(time);

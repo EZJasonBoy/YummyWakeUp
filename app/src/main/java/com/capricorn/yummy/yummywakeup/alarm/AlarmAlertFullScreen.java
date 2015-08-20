@@ -17,6 +17,8 @@
 package com.capricorn.yummy.yummywakeup.alarm;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -37,7 +39,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capricorn.yummy.yummywakeup.R;
-import com.capricorn.yummy.yummywakeup.config.Constants;
+import com.capricorn.yummy.yummywakeup.alarmType.NormalAlarm;
+import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.service.AlarmReceiver;
 
 import java.util.Calendar;
@@ -79,19 +83,23 @@ public class AlarmAlertFullScreen extends Activity {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
+        setContentView(R.layout.layout_test);
+        Log.d("test", "alert on create");
         mAlarm = getIntent().getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
         //sign changed by reason
+        // ToDo why here it needs to get alarm for another time
         mAlarm = Alarms.getAlarm(getContentResolver(), mAlarm.id);
 
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
         /**
          * 判断解锁方式，根据解锁方式弹出解锁框，显示Fragment
          */
-
         if (mAlarm.unlockType == Alarm.AlarmUnlockType.Normal.value()){
             //正常
-
-
+            Log.v("test","normal alarm");
+            NormalAlarm normalAlarm = new NormalAlarm();
+            fragmentTransaction.replace(R.id.fg_alarm, normalAlarm);
         }else if (mAlarm.unlockType == Alarm.AlarmUnlockType.Calculation.value()){
             //计算
 
@@ -107,7 +115,7 @@ public class AlarmAlertFullScreen extends Activity {
         // Get the volume/camera button behavior setting
         final String vol =
                 PreferenceManager.getDefaultSharedPreferences(this)
-                .getString(Constants.KEY_VOLUME_BEHAVIOR,
+                .getString(PreferenceKeys.KEY_VOLUME_BEHAVIOR,
                         DEFAULT_VOLUME_BEHAVIOR);
         mVolumeBehavior = Integer.parseInt(vol);
 
@@ -175,7 +183,7 @@ public class AlarmAlertFullScreen extends Activity {
         }
         final String snooze =
                 PreferenceManager.getDefaultSharedPreferences(this)
-                .getString(Constants.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE);
+                .getString(PreferenceKeys.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE);
         int snoozeMinutes = Integer.parseInt(snooze);
 
         final long snoozeTime = System.currentTimeMillis()

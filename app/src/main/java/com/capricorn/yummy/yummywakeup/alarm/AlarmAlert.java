@@ -78,19 +78,26 @@ public class AlarmAlert extends AlarmAlertFullScreen {
     }
 
     private boolean checkRetryCount() {
+        // ToDo 这里 mKeyguardRetryCount 没有初始化
         if (mKeyguardRetryCount++ >= MAX_KEYGUARD_CHECKS) {
             return false;
         }
         return true;
     }
 
+    /**
+     *
+     * @param km
+     */
     private void handleScreenOff(final KeyguardManager km) {
+        // If
         if (!km.inKeyguardRestrictedInputMode() && checkRetryCount()) {
             if (checkRetryCount()) {
                 mHandler.sendMessageDelayed(mHandler.obtainMessage(0, km), 500);
             }
         } else {
             // Launch the full screen activity but do not turn the screen on.
+            // ToDo Why not turn the screen on?
             Intent i = new Intent(this, AlarmAlertFullScreen.class);
             i.putExtra(Alarms.ALARM_INTENT_EXTRA, mAlarm);
             i.putExtra(SCREEN_OFF, true);
