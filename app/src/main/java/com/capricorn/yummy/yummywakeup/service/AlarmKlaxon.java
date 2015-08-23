@@ -52,15 +52,20 @@ public class AlarmKlaxon extends Service {
     private static final long[] sVibratePattern = new long[] { 500, 500 };
 
     private boolean mPlaying = false;
+    private boolean mCurrentStates = true;
+
+    private Alarm mCurrentAlarm;
     private Vibrator mVibrator;
     private MediaPlayer mMediaPlayer;
-    private Alarm mCurrentAlarm;
-    private long mStartTime;
-    private TelephonyManager mTelephonyManager;
-    private int mInitialCallState;
     private AudioManager mAudioManager = null;
-    private boolean mCurrentStates = true;
-    
+    private TelephonyManager mTelephonyManager;
+
+    private long mStartTime;
+    private int mInitialCallState;
+
+    // Volume suggested by media team for in-call alarms.
+    private static final float IN_CALL_VOLUME = 0.125f;
+
     // Internal messages
     private static final int KILLER = 1;
     private static final int FOCUSCHANGE = 2;
@@ -105,13 +110,14 @@ public class AlarmKlaxon extends Service {
         }
     };
 
+    // The user might already be in a call when the alarm fires. When
+    // we register onCallStateChanged, we get the initial in-call state
+    // which kills the alarm. Check against the initial call state so
+    // we don't kill the alarm during a call.
     private PhoneStateListener mPhoneStateListener = new PhoneStateListener() {
         @Override
         public void onCallStateChanged(int state, String ignored) {
-            // The user might already be in a call when the alarm fires. When
-            // we register onCallStateChanged, we get the initial in-call state
-            // which kills the alarm. Check against the initial call state so
-            // we don't kill the alarm during a call.
+            // If no activity
             if (state != TelephonyManager.CALL_STATE_IDLE
                     && state != mInitialCallState) {
                 sendKillBroadcast(mCurrentAlarm);
@@ -122,30 +128,30 @@ public class AlarmKlaxon extends Service {
 
     @Override
     public void onCreate() {
+        // Vibration Service
         mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        // Audio Service
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        // Listen for incoming calls to kill the alarm.
+        // Telephony Service
         mTelephonyManager =
                 (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        // Listen for incoming calls to kill the alarm
+        // Registers a listener to receive notification of changes
+        // in specified telephony states. Here mPhoneStateListener
         mTelephonyManager.listen(
                 mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
         AlarmAlertWakeLock.acquireCpuWakeLock(this);
     }
 
-    @Override
-    public void onDestroy() {
-        stop();
-        // Stop listening for incoming calls.
-        mTelephonyManager.listen(mPhoneStateListener, 0);
-        AlarmAlertWakeLock.releaseCpuLock();
-        mAudioManager.abandonAudioFocus(mAudioFocusListener);
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
+    /**
+     * It runs after onCreate if service is called by startService(). On pre-2.0
+     * platform, onStart will be called instead.
+     * @param intent
+     * @param flags Additional data about request.
+     *              Currently either 0, START_FLAG_REDELIVERY, or START_FLAG_RETRY.
+     * @param startId Unique int representing this specific request to start
+     * @return
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // No intent, tell the system not to restart us.
@@ -176,23 +182,45 @@ public class AlarmKlaxon extends Service {
         return START_STICKY;
     }
 
+    @Override
+    public void onDestroy() {
+        stop();
+        // Stop listening for incoming calls.
+        mTelephonyManager.listen(mPhoneStateListener, 0);
+        AlarmAlertWakeLock.releaseCpuLock();
+        mAudioManager.abandonAudioFocus(mAudioFocusListener);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    /**
+     *
+     * @param alarm Alarm killed
+     */
     private void sendKillBroadcast(Alarm alarm) {
+        // Calculates how long alarm played before being killed
         long millis = System.currentTimeMillis() - mStartTime;
         int minutes = (int) Math.round(millis / 60000.0);
+        // Intent to notify the alarm has been killed
         Intent alarmKilled = new Intent(Alarms.ALARM_KILLED);
         alarmKilled.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         alarmKilled.putExtra(Alarms.ALARM_KILLED_TIMEOUT, minutes);
+        // AlarmReceiver will receive it
         sendBroadcast(alarmKilled);
     }
 
-    // Volume suggested by media team for in-call alarms.
-    private static final float IN_CALL_VOLUME = 0.125f;
-
+    /**
+     * listener to be notified of audio focus changes
+     */
     private OnAudioFocusChangeListener mAudioFocusListener = new OnAudioFocusChangeListener() {
         public void onAudioFocusChange(int focusChange) {
             mHandler.obtainMessage(FOCUSCHANGE, focusChange, 0).sendToTarget();
         }
     };
+
     private void play(Alarm alarm) {
         // stop() checks to see if we are already playing.
         mAudioManager.requestAudioFocus(mAudioFocusListener, AudioManager.STREAM_ALARM,
@@ -299,7 +327,7 @@ public class AlarmKlaxon extends Service {
         Log.v("yummywakeup", "AlarmKlaxon.stop()");
         if (mPlaying) {
             mPlaying = false;
-
+            // ToDo 这个 Intent 会被谁接收
             Intent alarmDone = new Intent(Alarms.ALARM_DONE_ACTION);
             sendBroadcast(alarmDone);
 
@@ -309,7 +337,6 @@ public class AlarmKlaxon extends Service {
                 mMediaPlayer.release();
                 mMediaPlayer = null;
             }
-
             // Stop vibrator
             mVibrator.cancel();
         }

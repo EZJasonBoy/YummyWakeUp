@@ -97,7 +97,7 @@ public class Alarms {
         
         long timeInMillis = calculateAlarm(alarm);
         if (alarm.enabled) {
-            clearSnoozeIfNeeded(context, timeInMillis);
+            clearNextAlarmIfNeeded(context, timeInMillis);
         }
         setNextAlert(context);
 
@@ -140,7 +140,11 @@ public class Alarms {
                 null, null, Alarm.Columns.DEFAULT_SORT_ORDER);
     }
 
-    // Private method to get a more limited set of alarms from the database.
+    /**
+     * Gets all enabled alarms from the database.
+     * @param contentResolver
+     * @return
+     */
     private static Cursor getFilteredAlarmsCursor(
             ContentResolver contentResolver) {
         return contentResolver.query(
@@ -174,14 +178,18 @@ public class Alarms {
         return values;
     }
 
-    private static void clearSnoozeIfNeeded(Context context, long alarmTime) {
-        // If this alarm fires before the next snooze, clear the snooze to
-        // enable this alarm.
+    /**
+     * If this alarm fires before the next snooze, clear the snooze to
+     * enable this alarm.
+     * @param context
+     * @param alarmTime
+     */
+    private static void clearNextAlarmIfNeeded(Context context, long alarmTime) {
         SharedPreferences prefs =
                 context.getSharedPreferences(PreferenceKeys.SHARE_PREF_NAME, 0);
         long snoozeTime = prefs.getLong(PreferenceKeys.KEY_ALARM_TIME, 0);
         if (alarmTime < snoozeTime) {
-            clearSnoozePreference(context, prefs);
+            clearAlarmPreference(context, prefs);
         }
     }
 
@@ -253,13 +261,12 @@ public class Alarms {
             // Disable the snooze if we just changed the snoozed alarm. This
             // only does work if the snoozed alarm is the same as the given
             // alarm.
-            // TODO: disableSnoozeAlert should have a better name.
             disableSnoozeAlert(context, alarm.id);
 
             // Disable the snooze if this alarm fires before the snoozed alarm.
             // This works on every alarm since the user most likely intends to
             // have the modified alarm fire next.
-            clearSnoozeIfNeeded(context, timeInMillis);
+            clearNextAlarmIfNeeded(context, timeInMillis);
         }
 
         setNextAlert(context);
@@ -285,6 +292,12 @@ public class Alarms {
                 enabled);
     }
 
+    /**
+     *
+     * @param context
+     * @param alarm
+     * @param enabled
+     */
     private static void enableAlarmInternal(final Context context,
             final Alarm alarm, boolean enabled) {
         if (alarm == null) {
@@ -312,10 +325,15 @@ public class Alarms {
                 Alarm.Columns.CONTENT_URI, alarm.id), values, null, null);
     }
 
+    /**
+     *
+     * @param context
+     * @return
+     */
     public static Alarm calculateNextAlert(final Context context) {
         Alarm alarm = null;
         long minTime = Long.MAX_VALUE;
-        long now = System.currentTimeMillis();
+        long currentTime = System.currentTimeMillis();
         Cursor cursor = getFilteredAlarmsCursor(context.getContentResolver());
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -325,7 +343,7 @@ public class Alarms {
                     // calculate the time to get the next alert.
                     if (a.time == 0) {
                         a.time = calculateAlarm(a);
-                    } else if (a.time < now) {
+                    } else if (a.time < currentTime) {
                         Log.v("yummywakeup", "Disabling expired alarm set for ");
                         // Expired alarm, disable it and move along.
                         enableAlarmInternal(context, a, false);
@@ -365,11 +383,11 @@ public class Alarms {
 
     /**
      * Called at system startup, on time/timezone change, and whenever
-     * the user changes alarm settings. Activates snooze if set,
+     * the user changes alarm settings. Activates alarm if set,
      * otherwise loads all alarms, activates next alert.
      */
     public static void setNextAlert(final Context context) {
-        if (!enableSnoozeAlert(context)) {
+        if (!enableAlarmAlert(context)) {
             Alarm alarm = calculateNextAlert(context);
             if (alarm != null) {
                 enableAlert(context, alarm, alarm.time);
@@ -451,7 +469,7 @@ public class Alarms {
         SharedPreferences prefs = context.getSharedPreferences(
                 PreferenceKeys.SHARE_PREF_NAME, 0);
         if (id == -1) {
-            clearSnoozePreference(context, prefs);
+            clearAlarmPreference(context, prefs);
         } else {
             SharedPreferences.Editor ed = prefs.edit();
             ed.putInt(PreferenceKeys.KEY_ALARM_ID, id);
@@ -474,15 +492,19 @@ public class Alarms {
             return;
         } else if (snoozeId == id) {
             // This is the same id so clear the shared prefs.
-            clearSnoozePreference(context, prefs);
+            clearAlarmPreference(context, prefs);
         }
     }
 
-    // Helper to remove the snooze preference. Do not use clear because that
-    // will erase the clock preferences. Also clear the snooze notification in
-    // the window shade.
-    private static void clearSnoozePreference(final Context context,
-            final SharedPreferences prefs) {
+    /**
+     * Helper to remove the alarm preference. Do not use clear because that
+     * will erase the clock preferences. Also clear the alarm notification in
+     * the window shade.
+     * @param context
+     * @param prefs
+     */
+    private static void clearAlarmPreference(final Context context,
+                                             final SharedPreferences prefs) {
         final int alarmId = prefs.getInt(PreferenceKeys.KEY_ALARM_ID, -1);
         if (alarmId != -1) {
             NotificationManager nm = (NotificationManager)
@@ -500,7 +522,7 @@ public class Alarms {
      * If there is a snooze set, enable it in AlarmManager
      * @return true if snooze is set
      */
-    private static boolean enableSnoozeAlert(final Context context) {
+    private static boolean enableAlarmAlert(final Context context) {
         SharedPreferences prefs = context.getSharedPreferences(
                 PreferenceKeys.SHARE_PREF_NAME, 0);
 

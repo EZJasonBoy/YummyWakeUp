@@ -82,7 +82,7 @@ public class DaysOfWeek {
 
     /**
      * Check whether repeat is set
-     * @return
+     * @return true if repeat
      */
     public boolean isRepeatSet() {
         return mDays != 0;
