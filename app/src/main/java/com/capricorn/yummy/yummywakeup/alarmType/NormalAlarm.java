@@ -1,12 +1,9 @@
 package com.capricorn.yummy.yummywakeup.alarmType;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.alarm.AlarmAlertFullScreen;
@@ -14,47 +11,32 @@ import com.capricorn.yummy.yummywakeup.alarm.AlarmAlertFullScreen;
 /**
  * Created by Chuan on 8/4/2015.
  */
-public class NormalAlarm extends Fragment implements View.OnClickListener {
+public class NormalAlarm extends UnlockFragment {
 
-//    private MediaPlayer mMediaPlayer;
-
-    private View closeAlarm;
+    private Button btnCloseAlarm;
     private OnAlarmAction mListener;
-    
-/*    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-//        mMediaPlayer = MediaPlayer.create(activity, R.raw.music_1);
-//        mMediaPlayer.start();
-    }*/
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        
-        View rootView = inflater.inflate(R.layout.alarm_player, container, false);
-        closeAlarm = rootView.findViewById(R.id.closeAlarm);
-        closeAlarm.setOnClickListener(this);
-        return rootView;
+    public void initView(View container) {
+        btnCloseAlarm = (Button) container.findViewById(R.id.btn_close_alarm);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-//        mMediaPlayer.pause();
+    public void initConfig(Bundle bundle) {}
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_normal_alarm;
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        mMediaPlayer.stop();
-//        mMediaPlayer.release();
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        mListener.closeAlarm();
+    public void initListener() {
+        btnCloseAlarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.closeAlarm();
+            }
+        });
     }
 
     @Override
@@ -72,10 +54,14 @@ public class NormalAlarm extends Fragment implements View.OnClickListener {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }    
-    public interface OnAlarmAction{
-        void closeAlarm();
     }
 
-    
+    @Override
+    public void refresh() {}
+
+    @Override
+    public boolean checkUnloclAlarm() {
+        // Nothing to do for normal alarm
+        return true;
+    }
 }

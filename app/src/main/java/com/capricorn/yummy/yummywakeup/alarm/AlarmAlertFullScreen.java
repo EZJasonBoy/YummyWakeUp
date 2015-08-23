@@ -40,6 +40,7 @@ import android.widget.Toast;
 
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.alarmType.NormalAlarm;
+import com.capricorn.yummy.yummywakeup.alarmType.UnlockFragment;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.service.AlarmReceiver;
@@ -52,7 +53,7 @@ import java.util.Calendar;
  * tone. This activity is the full screen version which shows over the lock
  * screen with the wallpaper as the background.
  */
-public class AlarmAlertFullScreen extends FragmentActivity implements NormalAlarm.OnAlarmAction {
+public class AlarmAlertFullScreen extends FragmentActivity implements UnlockFragment.OnAlarmAction {
 
     // These defaults must match the values in res/xml/settings.xml
     private static final String DEFAULT_SNOOZE = "10";
@@ -86,7 +87,7 @@ public class AlarmAlertFullScreen extends FragmentActivity implements NormalAlar
         requestWindowFeature(android.view.Window.FEATURE_NO_TITLE);
         super.onCreate(icicle);
         setContentView(R.layout.layout_test);
-        Log.d("test", "alert on create");
+
         mAlarm = getIntent().getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
         //sign changed by reason
         // ToDo why here it needs to get alarm for another time
@@ -98,8 +99,6 @@ public class AlarmAlertFullScreen extends FragmentActivity implements NormalAlar
          * 判断解锁方式，根据解锁方式弹出解锁框，显示Fragment
          */
         if (mAlarm.unlockType == Alarm.AlarmUnlockType.Normal.value()){
-            //正常
-            Log.v("test","normal alarm");
             NormalAlarm normalAlarm = new NormalAlarm();
             fragmentTransaction.replace(R.id.fg_alarm, normalAlarm);
             fragmentTransaction.commit();
