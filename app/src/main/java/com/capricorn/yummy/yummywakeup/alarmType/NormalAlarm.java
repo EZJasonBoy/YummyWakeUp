@@ -60,7 +60,7 @@ public class NormalAlarm extends UnlockFragment {
     public void refresh() {}
 
     @Override
-    public boolean checkUnloclAlarm() {
+    public boolean checkUnlockAlarm() {
         // Nothing to do for normal alarm
         return true;
     }

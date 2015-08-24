@@ -108,6 +108,7 @@ public class CalculationFormula {
                 }
             }
         }
+        return formulaString;
     }
 
     /**

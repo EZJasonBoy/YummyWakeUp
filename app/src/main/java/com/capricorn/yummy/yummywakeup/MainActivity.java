@@ -127,6 +127,7 @@ public class MainActivity extends Activity {
                 if (isChecked) {
                     Alarms.setAlarm(MainActivity.this, alarm);
                 } else {
+                    // ToDo bug here, not work
                     Alarms.deleteAlarm(MainActivity.this, alarm);
                 }
             }

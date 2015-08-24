@@ -8,7 +8,7 @@ import com.capricorn.yummy.yummywakeup.infrastructure.fragment.BaseFragment;
 public abstract class UnlockFragment extends BaseFragment {
 
 
-    public abstract boolean checkUnloclAlarm();
+    public abstract boolean checkUnlockAlarm();
 
     /**
      * Callback interface to unlock and close alarm

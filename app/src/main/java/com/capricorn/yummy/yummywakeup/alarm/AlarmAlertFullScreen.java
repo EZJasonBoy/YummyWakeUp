@@ -39,11 +39,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capricorn.yummy.yummywakeup.R;
+import com.capricorn.yummy.yummywakeup.alarmType.CalculationAlarm;
 import com.capricorn.yummy.yummywakeup.alarmType.NormalAlarm;
 import com.capricorn.yummy.yummywakeup.alarmType.UnlockFragment;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.service.AlarmReceiver;
+import com.capricorn.yummy.yummywakeup.util.CalculationFormula;
 
 import java.util.Calendar;
 
@@ -103,13 +105,11 @@ public class AlarmAlertFullScreen extends FragmentActivity implements UnlockFrag
             fragmentTransaction.replace(R.id.fg_alarm, normalAlarm);
             fragmentTransaction.commit();
         }else if (mAlarm.unlockType == Alarm.AlarmUnlockType.Calculation.value()){
-            //计算
-
-
+            CalculationAlarm calculationAlarm = new CalculationAlarm();
+            fragmentTransaction.replace(R.id.fg_alarm, calculationAlarm);
+            fragmentTransaction.commit();
         }else if (mAlarm.unlockType == Alarm.AlarmUnlockType.Puzzle.value()){
             //解谜题
-
-
         }else if (mAlarm.unlockType == Alarm.AlarmUnlockType.Shake.value()){
             //摇晃
         }
@@ -320,4 +320,5 @@ public class AlarmAlertFullScreen extends FragmentActivity implements UnlockFrag
     public void closeAlarm() {
         dismiss(false);
     }
+
 }
