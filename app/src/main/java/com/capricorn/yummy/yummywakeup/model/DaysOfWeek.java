@@ -9,16 +9,23 @@ import java.util.Calendar;
 
 /**
  * To presents days of week by a single int.
- * 0x00: no day    00000000  0
- * 0x01: Monday    00000001  1
- * 0x02: Tuesday   00000010  2
- * 0x04: Wednesday 00000100  4
- * 0x08: Thursday  00001000  8
- * 0x10: Friday    00010000 16
- * 0x20: Saturday  00100000 32
- * 0x40: Sunday    01000000 64
+ * 0x01: Monday    00000001  1 -> 0
+ * 0x02: Tuesday   00000010  2 -> 1
+ * 0x04: Wednesday 00000100  4 -> 2
+ * 0x08: Thursday  00001000  8 -> 3
+ * 0x10: Friday    00010000 16 -> 4
+ * 0x20: Saturday  00100000 32 -> 5
+ * 0x40: Sunday    01000000 64 -> 6
  */
 public class DaysOfWeek {
+
+    public final static int MONDAY    = 0;
+    public final static int TUESDAY   = 1;
+    public final static int WEDNESDAY = 2;
+    public final static int THURSDAY  = 3;
+    public final static int FRIDAY    = 4;
+    public final static int SATURDAY  = 5;
+    public final static int SUNDAY    = 6;
 
     private static int[] DAY_MAP = new int[] {
             Calendar.MONDAY,

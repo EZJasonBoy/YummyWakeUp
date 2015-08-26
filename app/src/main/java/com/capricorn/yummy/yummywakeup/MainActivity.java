@@ -20,6 +20,7 @@ import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.alarm.Alarms;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
 import com.capricorn.yummy.yummywakeup.model.CurrentTime;
+import com.capricorn.yummy.yummywakeup.model.DaysOfWeek;
 
 import java.util.Calendar;
 
@@ -98,13 +99,13 @@ public class MainActivity extends Activity {
      */
     private void initRepeat() {
         if(alarm.daysOfWeek.isRepeatSet()){
-            btnMonday.setPressed(alarm.daysOfWeek.isSet(1));
-            btnTuesday.setPressed(alarm.daysOfWeek.isSet(2));
-            btnWednesday.setPressed(alarm.daysOfWeek.isSet(4));
-            btnThursday.setPressed(alarm.daysOfWeek.isSet(8));
-            btnFriday.setPressed(alarm.daysOfWeek.isSet(16));
-            btnSaturday.setPressed(alarm.daysOfWeek.isSet(32));
-            btnSunday.setPressed(alarm.daysOfWeek.isSet(64));
+            btnMonday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.MONDAY));
+            btnTuesday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.TUESDAY));
+            btnWednesday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.WEDNESDAY));
+            btnThursday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.THURSDAY));
+            btnFriday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.FRIDAY));
+            btnSaturday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.SATURDAY));
+            btnSunday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.SUNDAY));
         }
     }
 
@@ -136,13 +137,14 @@ public class MainActivity extends Activity {
         swVibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     // ToDo Set vibrate
-                }else{
+                } else {
                     // ToDo Unset vibrate
                 }
             }
         });
+
     }
 
     private Handler timeHandler = new Handler(){
@@ -228,31 +230,41 @@ public class MainActivity extends Activity {
      * @param view
      */
     public void setRepeat(View view) {
+        if(view.isActivated()) {
+            view.setActivated(false);
+        } else {
+            view.setActivated(true);
+        }
         switch (view.getId()) {
             case R.id.btn_monday:
-                alarm.daysOfWeek.set(1, view.isPressed());
+                alarm.daysOfWeek.set(DaysOfWeek.MONDAY, view.isActivated());
                 break;
             case R.id.btn_tuesday:
-                alarm.daysOfWeek.set(2, view.isPressed());
+                alarm.daysOfWeek.set(DaysOfWeek.TUESDAY, view.isActivated());
                 break;
             case R.id.btn_wednesday:
-                alarm.daysOfWeek.set(4, view.isPressed());
+                alarm.daysOfWeek.set(DaysOfWeek.WEDNESDAY, view.isActivated());
                 break;
             case R.id.btn_thursday:
-                alarm.daysOfWeek.set(8, view.isPressed());
+                alarm.daysOfWeek.set(DaysOfWeek.THURSDAY, view.isActivated());
                 break;
             case R.id.btn_friday:
-                alarm.daysOfWeek.set(16, view.isPressed());
+                alarm.daysOfWeek.set(DaysOfWeek.FRIDAY, view.isActivated());
                 break;
             case R.id.btn_saturday:
-                alarm.daysOfWeek.set(32, view.isPressed());
+                alarm.daysOfWeek.set(DaysOfWeek.SATURDAY, view.isActivated());
                 break;
             case R.id.btn_sunday:
-                alarm.daysOfWeek.set(64, view.isPressed());
+                alarm.daysOfWeek.set(DaysOfWeek.SUNDAY, view.isActivated());
                 break;
             default:
                 break;
         }
+        Log.v("test",String.valueOf(alarm.daysOfWeek.getCoded()));
         Alarms.setAlarm(MainActivity.this, alarm);
+    }
+
+    private void setColor() {
+
     }
 }
