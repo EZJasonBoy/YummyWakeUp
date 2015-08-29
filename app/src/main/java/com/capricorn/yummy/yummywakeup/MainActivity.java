@@ -3,7 +3,9 @@ package com.capricorn.yummy.yummywakeup;
 import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Ringtone;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,6 +31,7 @@ public class MainActivity extends Activity {
     private TextView tvCurrentTime;
     private TextView tvWeekMonthDay;
     private TextView tvAlarmTime;
+    private TextView tvRingTone;
 
     private Button btnMonday;
     private Button btnTuesday;
@@ -54,6 +57,7 @@ public class MainActivity extends Activity {
         tvCurrentTime  = (TextView) findViewById(R.id.tv_curentTime);
         tvWeekMonthDay = (TextView) findViewById(R.id.tv_week_month_day);
         tvAlarmTime    = (TextView) findViewById(R.id.tv_alarmTime);
+        tvRingTone     = (TextView) findViewById(R.id.tv_ringtone);
 
         btnMonday    = (Button) findViewById(R.id.btn_monday);
         btnTuesday   = (Button) findViewById(R.id.btn_tuesday);
@@ -144,6 +148,15 @@ public class MainActivity extends Activity {
                 }
             }
         });
+        // Set RingtoneSetting
+        tvRingTone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RingtoneSetting.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

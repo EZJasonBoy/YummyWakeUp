@@ -19,7 +19,7 @@
 
         <SeekBar
             android:id="@+id/seekBar"
-            android:layout_width="wrap_content"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_alignParentRight="true" />
@@ -31,6 +31,7 @@
         android:layout_height="56dp" />
 
     <ListView
+        android:id="@+id/lv_ringtone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"></ListView>
 
