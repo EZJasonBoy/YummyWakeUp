@@ -67,7 +67,9 @@ public class RingtoneSetting extends BaseActivity {
 
     @Override
     public void initData() {
-
+        /**
+         * Get all the system alarm
+         */
         ContentResolver cr = this.getContentResolver();
         Cursor cursor = cr.query(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,
                 new String[] { MediaStore.Audio.Media._ID,
@@ -76,9 +78,6 @@ public class RingtoneSetting extends BaseActivity {
                 new String[] { "0" }, "_id asc");
         if (cursor == null) {
             return;
-        }
-        while (cursor.moveToNext()) {
-            list_alarm.add(cursor.getString(1));
         }
 
         lvRingtone.setAdapter(new RingtoneCursorAdapter(this, cursor, 0));
