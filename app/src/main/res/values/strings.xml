@@ -88,5 +88,7 @@
         <item msgid="2740866721232379791">"30"</item>
     </string-array>
     <string name="alarm_klaxon_service_desc">"在 DeskClock 中设置的闹钟铃声播放服务。"</string>
+    <string name="cancel">Cancel</string>
+    <string name="accept">Accept</string>
 
 </resources>

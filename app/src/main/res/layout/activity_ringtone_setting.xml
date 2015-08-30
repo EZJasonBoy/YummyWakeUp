@@ -35,4 +35,27 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"></ListView>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn__ringtone_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="?android:textAppearanceLarge"
+            android:text="@string/cancel"/>
+
+        <Button
+            android:id="@+id/btn_ringtone_accept"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="?android:textAppearanceLarge"
+            android:text="@string/accept"/>
+
+    </LinearLayout>
+
 </LinearLayout>

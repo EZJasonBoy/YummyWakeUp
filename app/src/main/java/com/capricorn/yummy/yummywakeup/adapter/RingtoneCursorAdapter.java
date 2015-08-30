@@ -23,7 +23,9 @@ public class RingtoneCursorAdapter extends CursorAdapter {
     public RingtoneCursorAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
+
     HashMap<String,Boolean> radioButtonStates=new HashMap<String,Boolean>();
+    public static int selectPostion;
     ViewHolder holder;
 
     @Override
@@ -48,6 +50,7 @@ public class RingtoneCursorAdapter extends CursorAdapter {
         // Get position here instead of in onClick. We cant ensure that position is the same
         // in onClick
         final int position = cursor.getPosition();
+        selectPostion = position;
 
         holder.rbRingtone.setOnClickListener(new View.OnClickListener() {
 

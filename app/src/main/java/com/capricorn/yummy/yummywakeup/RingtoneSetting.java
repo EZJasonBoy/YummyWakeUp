@@ -2,12 +2,15 @@ package com.capricorn.yummy.yummywakeup;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -25,9 +28,11 @@ public class RingtoneSetting extends BaseActivity {
     private SeekBar mSeekBar;
     private ListView lvRingtone;
     private AudioManager mAudioManager;
-    private TextView tvItemRingtone;
+    private Button btnAccept;
+    private Button btnCancel;
 
-    List<String> list_alarm = new ArrayList<String>();
+    private Cursor cursor;
+    private List<String> listUri;
 
     @Override
     public void initToolbar() {}
@@ -36,7 +41,8 @@ public class RingtoneSetting extends BaseActivity {
     public void initView() {
         mSeekBar = (SeekBar) findViewById(R.id.seekBar);
         lvRingtone = (ListView) findViewById(R.id.lv_ringtone);
-        tvItemRingtone = (TextView) findViewById(R.id.tv_ringtone);
+        btnAccept = (Button) findViewById(R.id.btn_ringtone_accept);
+        btnCancel = (Button) findViewById(R.id.btn__ringtone_cancel);
         // Init SeekBar
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM);
@@ -63,6 +69,25 @@ public class RingtoneSetting extends BaseActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
+        btnAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                cursor.moveToPosition(RingtoneCursorAdapter.selectPostion);
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE));
+                intent.putExtra("uri", MediaStore.Audio.Media.getContentUri(title).toString());
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -71,15 +96,13 @@ public class RingtoneSetting extends BaseActivity {
          * Get all the system alarm
          */
         ContentResolver cr = this.getContentResolver();
-        Cursor cursor = cr.query(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,
+        cursor = cr.query(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,
                 new String[] { MediaStore.Audio.Media._ID,
-                        MediaStore.Audio.Media.DATA,
                         MediaStore.Audio.Media.TITLE }, "is_alarm != ?",
                 new String[] { "0" }, "_id asc");
         if (cursor == null) {
             return;
         }
-
         lvRingtone.setAdapter(new RingtoneCursorAdapter(this, cursor, 0));
     }
 

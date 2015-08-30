@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Ringtone;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -153,11 +154,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RingtoneSetting.class);
-                startActivity(intent);
+                startActivityForResult(intent, 0);
             }
         });
-
-
     }
 
     private Handler timeHandler = new Handler(){
@@ -273,11 +272,25 @@ public class MainActivity extends Activity {
             default:
                 break;
         }
-        Log.v("test",String.valueOf(alarm.daysOfWeek.getCoded()));
         Alarms.setAlarm(MainActivity.this, alarm);
     }
 
     private void setColor() {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 0:
+                if(resultCode == RESULT_OK) {
+                    alarm.alert = Uri.parse(data.getStringExtra("uri"));
+                    Alarms.setAlarm(MainActivity.this, alarm);
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
