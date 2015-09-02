@@ -41,8 +41,8 @@
         android:layout_height="72dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:orientation="horizontal"
-        android:onClick="setAlarmTime" >
+        android:onClick="setAlarmTime"
+        android:orientation="horizontal">
 
         <com.capricorn.yummy.yummywakeup.view.RobotoTextView
             android:id="@+id/tv_alarmTime"
@@ -73,77 +73,132 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_monday"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/btn_selector"
-            android:textColor="@color/color_3"
-            android:onClick="setRepeat"
-            android:text="M" />
 
-        <Button
-            android:id="@+id/btn_tuesday"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/btn_selector"
-            android:textColor="@color/color_3"
-            android:onClick="setRepeat"
-            android:text="T" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/btn_wednesday"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/btn_selector"
-            android:textColor="@color/color_3"
-            android:onClick="setRepeat"
-            android:text="W" />
+            <Button
+                android:id="@+id/btn_monday"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_selector"
+                android:onClick="setRepeat"
+                android:layout_gravity="center"
+                android:text="M"
+                android:textColor="@color/color_3" />
+        </FrameLayout>
 
-        <Button
-            android:id="@+id/btn_thursday"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/btn_selector"
-            android:textColor="@color/color_3"
-            android:onClick="setRepeat"
-            android:text="T" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <Button
-            android:id="@+id/btn_friday"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/btn_selector"
-            android:textColor="@color/color_3"
-            android:onClick="setRepeat"
-            android:text="F" />
+            <Button
+                android:id="@+id/btn_tuesday"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_selector"
+                android:onClick="setRepeat"
+                android:text="T"
+                android:layout_gravity="center"
+                android:textColor="@color/color_3" />
 
-        <Button
-            android:id="@+id/btn_saturday"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_selector"
-            android:textColor="@color/color_3"
-            android:onClick="setRepeat"
-            android:text="S" />
+        </FrameLayout>
 
-        <Button
-            android:id="@+id/btn_sunday"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/btn_selector"
-            android:textColor="@color/color_3"
-            android:onClick="setRepeat"
-            android:text="W" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_wednesday"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_selector"
+                android:onClick="setRepeat"
+                android:text="W"
+                android:layout_gravity="center"
+
+                android:textColor="@color/color_3" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_thursday"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_selector"
+                android:onClick="setRepeat"
+                android:text="T"
+                android:layout_gravity="center"
+
+                android:textColor="@color/color_3" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_friday"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_selector"
+                android:onClick="setRepeat"
+                android:text="F"             
+                android:layout_gravity="center"
+
+                android:textColor="@color/color_3" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_saturday"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_selector"
+                android:onClick="setRepeat"
+                android:text="S"
+                android:layout_gravity="center"
+
+                android:textColor="@color/color_3" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btn_sunday"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/btn_selector"
+                android:onClick="setRepeat"
+                android:text="W"
+                android:layout_gravity="center"
+
+                android:textColor="@color/color_3" />
+        </FrameLayout>
+
 
     </LinearLayout>
     <!-- Divider-->
