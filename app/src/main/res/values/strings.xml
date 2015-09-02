@@ -90,5 +90,6 @@
     <string name="alarm_klaxon_service_desc">"在 DeskClock 中设置的闹钟铃声播放服务。"</string>
     <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>
+    <string name="title_activity_unlock_type">UnlockTypeActivity</string>
 
 </resources>

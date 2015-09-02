@@ -21,15 +21,17 @@ import android.widget.Toast;
 
 import com.capricorn.yummy.yummywakeup.alarm.Alarms;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
+import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.model.CurrentTime;
 import com.capricorn.yummy.yummywakeup.model.DaysOfWeek;
 
 import java.util.Calendar;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
     private final static String M12 = "h:mm";
+    private final static String FORMAT_WDAY_MONTH_DAY = "EE, MMMM dd";
     private final static int ALARM_NOT_SET = -1;
     private final Handler mHandler = new Handler();
     private TextView tvCurrentTime;
@@ -64,16 +66,20 @@ public class MainActivity extends Activity {
             });
         }
     };
-    private boolean mAttached;
-
-    
+    private boolean mAttached; // Default value is false
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public void initToolbar() {}
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public void initView() {
         mCalendar = Calendar.getInstance();
-        setDateFormat();
+        mFormat = Alarms.get24HourMode(MainActivity.this) ? Alarms.M24 : M12;
 
         tvCurrentTime = (TextView) findViewById(R.id.tv_curentTime);
         tvWeekMonthDay = (TextView) findViewById(R.id.tv_week_month_day);
@@ -90,102 +96,10 @@ public class MainActivity extends Activity {
 
         swAlarm = (Switch) findViewById(R.id.sw_alarm);
         swVibrate = (Switch) findViewById(R.id.sw_vibrate);
-
-        initAlarm();
-        initRepeat();
-        initSwitch();
-        initListener();
-    }
-
-
-    private void setDateFormat() {
-        mFormat = Alarms.get24HourMode(MainActivity.this) ? Alarms.M24 : M12;
-    }
-
-    private void updateTime() {
-        mCalendar.setTimeInMillis(System.currentTimeMillis());
-        CharSequence newTime = DateFormat.format(mFormat, mCalendar);
-        tvCurrentTime.setText(newTime);
-    }
-    
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-
-        if (mAttached) return;
-        mAttached = true;
-
-       /* monitor time ticks, time changed, timezone */
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_TIME_TICK);
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        registerReceiver(mIntentReceiver, filter);
-        updateTime();
     }
 
     @Override
-    public void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-
-        if (!mAttached) return;
-        mAttached = false;
-        unregisterReceiver(mIntentReceiver);
-    }
-
-    /**
-     * Init alarm
-     */
-    private void initAlarm() {
-        // Start to show current time
-        //       timeHandler.sendEmptyMessage(0);
-        // Read saved alarm time from sharedPreference
-        alarmId = readSavedAlarm();
-
-        if (alarmId == ALARM_NOT_SET) {
-            // If no alarm available, set a default alarm with current time
-            alarm = new Alarm();
-            // Set alarm time on TextView
-            setAlarmTimeOnTextView(alarm);
-            alarmId = Alarms.addAlarm(this, alarm);
-            saveAlarm();
-        } else {
-            alarm = Alarms.getAlarm(getContentResolver(), alarmId);
-            setAlarmTimeOnTextView(alarm);
-        }
-
-        Calendar c = Calendar.getInstance();
-        CurrentTime currentTime = new CurrentTime(c.getTimeInMillis());
-        tvWeekMonthDay.setText(currentTime.getWeekMonthDayLabel());
-    }
-
-    /**
-     * Init repeat buttons' status
-     */
-    private void initRepeat() {
-        if (alarm.daysOfWeek.isRepeatSet()) {
-            btnMonday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.MONDAY));
-            btnTuesday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.TUESDAY));
-            btnWednesday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.WEDNESDAY));
-            btnThursday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.THURSDAY));
-            btnFriday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.FRIDAY));
-            btnSaturday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.SATURDAY));
-            btnSunday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.SUNDAY));
-        }
-    }
-
-    /**
-     * Init switch status when start app
-     */
-    private void initSwitch() {
-        if (alarm.enabled) swAlarm.setChecked(true);
-        if (alarm.vibrate) swVibrate.setChecked(true);
-    }
-
-    /**
-     * Set listeners for switch alarm and switch vibrate
-     */
-    private void initListener() {
+    public void initListener() {
         // Set alarm switch
         swAlarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -219,22 +133,89 @@ public class MainActivity extends Activity {
         });
     }
 
-  /*  private Handler timeHandler = new Handler(){
-        public void handleMessage(Message msg) {
-            RefreshCurrentTime();
-            timeHandler.sendEmptyMessageDelayed(0, 1000); // Update time Every one second
-        }
-    };*/
+    @Override
+    public void initData() {
+        initAlarm();
+        initRepeat();
+        initSwitch();
+    }
+    
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        if (mAttached) return;
+        mAttached = true;
+
+        /* monitor time ticks, time changed, timezone */
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_TIME_TICK);
+        filter.addAction(Intent.ACTION_TIME_CHANGED);
+        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        registerReceiver(mIntentReceiver, filter);
+        updateTime();
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        if (!mAttached) return;
+        mAttached = false;
+        unregisterReceiver(mIntentReceiver);
+    }
+
+    private void updateTime() {
+        mCalendar.setTimeInMillis(System.currentTimeMillis());
+        CharSequence newTime = DateFormat.format(mFormat, mCalendar);
+        tvCurrentTime.setText(newTime);
+        CharSequence weekMonthDay = DateFormat.format(FORMAT_WDAY_MONTH_DAY, mCalendar);
+        tvWeekMonthDay.setText(weekMonthDay);
+    }
 
     /**
-     * Refresh time shown on TextView
+     * Init alarm
      */
-    private void RefreshCurrentTime() {
-        Calendar c = Calendar.getInstance();
-        CurrentTime currentTime = new CurrentTime(c.getTimeInMillis());
-        // Update time shown on TextView
-        tvCurrentTime.setText(currentTime.getTimeLabel());
-        tvWeekMonthDay.setText(currentTime.getWeekMonthDayLabel());
+    private void initAlarm() {
+        // Start to show current time
+        //       timeHandler.sendEmptyMessage(0);
+        // Read saved alarm time from sharedPreference
+        alarmId = readSavedAlarm();
+
+        if (alarmId == ALARM_NOT_SET) {
+            // If no alarm available, set a default alarm with current time
+            alarm = new Alarm();
+            // Set alarm time on TextView
+            setAlarmTimeOnTextView(alarm);
+            alarmId = Alarms.addAlarm(this, alarm);
+            saveAlarm();
+        } else {
+            alarm = Alarms.getAlarm(getContentResolver(), alarmId);
+            setAlarmTimeOnTextView(alarm);
+        }
+    }
+
+    /**
+     * Init repeat buttons' status
+     */
+    private void initRepeat() {
+        if (alarm.daysOfWeek.isRepeatSet()) {
+            btnMonday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.MONDAY));
+            btnTuesday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.TUESDAY));
+            btnWednesday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.WEDNESDAY));
+            btnThursday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.THURSDAY));
+            btnFriday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.FRIDAY));
+            btnSaturday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.SATURDAY));
+            btnSunday.setActivated(alarm.daysOfWeek.isSet(DaysOfWeek.SUNDAY));
+        }
+    }
+
+    /**
+     * Init switch status when start app
+     */
+    private void initSwitch() {
+        if (alarm.enabled) swAlarm.setChecked(true);
+        if (alarm.vibrate) swVibrate.setChecked(true);
     }
 
     /**
