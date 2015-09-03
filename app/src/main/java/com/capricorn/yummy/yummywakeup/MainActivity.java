@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
     private TextView tvWeekMonthDay;
     private TextView tvAlarmTime;
     private TextView tvRingTone;
+    private TextView tvUnlockType;
     private Button btnMonday;
     private Button btnTuesday;
     private Button btnWednesday;
@@ -85,6 +86,7 @@ public class MainActivity extends BaseActivity {
         tvWeekMonthDay = (TextView) findViewById(R.id.tv_week_month_day);
         tvAlarmTime = (TextView) findViewById(R.id.tv_alarmTime);
         tvRingTone = (TextView) findViewById(R.id.tv_ringtone);
+        tvUnlockType = (TextView) findViewById(R.id.tv_unlock_type);
 
         btnMonday = (Button) findViewById(R.id.btn_monday);
         btnTuesday = (Button) findViewById(R.id.btn_tuesday);
@@ -129,6 +131,14 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RingtoneSetting.class);
                 startActivityForResult(intent, 0);
+            }
+        });
+        // Set unlock type
+        tvUnlockType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UnlockTypeActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -333,6 +343,9 @@ public class MainActivity extends BaseActivity {
                     alarm.alert = Uri.parse(data.getStringExtra("uri"));
                     Alarms.setAlarm(MainActivity.this, alarm);
                 }
+                break;
+            case 1:
+                // ToDo unlock type
                 break;
             default:
                 break;

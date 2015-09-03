@@ -17,10 +17,9 @@ public class CurrentTime {
     private String weekMonthDayLabel = ""; // Current Week, Month Day shown on TextView tv_week_month_day
     private Calendar date;
 
-    public CurrentTime(long time) {
+    public CurrentTime(Calendar date) {
 
-        date = Calendar.getInstance();
-        date.setTimeInMillis(time);
+        this.date = date;
 
         this.month = date.get(Calendar.MONTH);
         this.day = date.get(Calendar.DAY_OF_MONTH);
