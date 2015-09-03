@@ -1,10 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
     <!-- Voice Control -->
     <RelativeLayout
+        android:id="@+id/rl_voice_control"
         android:layout_width="fill_parent"
         android:layout_height="56dp"
         android:gravity="center_vertical">
@@ -26,17 +27,23 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/tv_ringtone_title"
         android:layout_width="fill_parent"
-        android:layout_height="56dp" />
+        android:layout_height="56dp"
+        android:layout_below="@id/rl_voice_control"
+        android:gravity="bottom|left"
+        android:text="Set ringtone"/>
 
     <ListView
         android:id="@+id/lv_ringtone"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_ringtone_title"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
         <Button
@@ -55,4 +62,4 @@
        
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
