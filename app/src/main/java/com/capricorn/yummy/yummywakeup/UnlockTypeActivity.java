@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.capricorn.yummy.yummywakeup.dialog.UnlockDialogFragment;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
 
 public class UnlockTypeActivity extends BaseActivity
-        implements AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener {
+        implements View.OnClickListener {
 
     private GridView gvUnlockType;
     private Button btnAccept;
@@ -52,8 +53,36 @@ public class UnlockTypeActivity extends BaseActivity
 
     @Override
     public void initListener() {
-        gvUnlockType.setOnItemClickListener(this);
-        gvUnlockType.setOnItemSelectedListener(this);
+        gvUnlockType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("yummywakeup", "Unlock type clicking position:" + String.valueOf(position));
+                switch(position) {
+                    case 0://Normal
+                        break;
+                    case 1://Calculation
+                    case 2://Puzzle
+                    case 3://Shake
+                    default:
+                        FragmentManager manager = getFragmentManager();
+                        UnlockDialogFragment dialog = new UnlockDialogFragment();
+                        dialog.show(manager, "testTag");
+                        break;
+                }
+            }
+        });
+
+        gvUnlockType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.v("yummywakeup", "Unlock type clicking position:" + String.valueOf(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         btnAccept.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
     }
@@ -67,32 +96,6 @@ public class UnlockTypeActivity extends BaseActivity
     @Override
     public int getLayoutId() {
         return R.layout.activity_unlock_type;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //ToDo
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch(position) {
-            case 0://Normal
-                break;
-            case 1://Calculation
-            case 2://Puzzle
-            case 3://Shake
-            default:
-                FragmentManager manager = getFragmentManager();
-                UnlockDialogFragment dialog = new UnlockDialogFragment();
-                dialog.show(manager, "testTag");
-                break;
-        }
     }
 
     @Override
