@@ -1,4 +1,4 @@
-package com.capricorn.yummy.yummywakeup;
+package com.capricorn.yummy.yummywakeup.unlockTypeModule;
 
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -8,9 +8,11 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 
-import com.capricorn.yummy.yummywakeup.adapter.UnlockTypeAdapter;
-import com.capricorn.yummy.yummywakeup.dialog.UnlockDialogFragment;
+import com.capricorn.yummy.yummywakeup.R;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter.UnlockTypeAdapter;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.dialog.UnlockDialogFragment;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,6 @@ public class UnlockTypeActivity extends BaseActivity
     private GridView gvUnlockType;
     private Button btnAccept;
     private Button btnCancel;
-    
 
     @Override
     public void initToolbar() {
@@ -75,30 +76,12 @@ public class UnlockTypeActivity extends BaseActivity
     @Override
     public void initData() {
 
-        List<UnlockTypeAdapter.UnlockType> unlockTypeList = new ArrayList<>();
+        List<UnlockType> unlockTypeList = new ArrayList<>();
 
-        UnlockTypeAdapter.UnlockType unlockType = new UnlockTypeAdapter.UnlockType();
-        unlockType.mTypeNames = "Normal";
-        unlockType.mTypeImages = R.mipmap.ic_launcher;
-        unlockTypeList.add(unlockType);
-
-        UnlockTypeAdapter.UnlockType unlockType2 = new UnlockTypeAdapter.UnlockType();
-        unlockType2.mTypeNames = "Math";
-        unlockType2.mTypeImages = R.mipmap.ic_launcher;
-        unlockTypeList.add(unlockType2);
-
-
-        UnlockTypeAdapter.UnlockType unlockType3 = new UnlockTypeAdapter.UnlockType();
-        unlockType3.mTypeNames = "Puzzle";
-        unlockType3.mTypeImages = R.mipmap.ic_launcher;
-        unlockTypeList.add(unlockType3);
-
-        UnlockTypeAdapter.UnlockType unlockType4 = new UnlockTypeAdapter.UnlockType();
-        unlockType4.mTypeNames = "Shake";
-        unlockType4.mTypeImages = R.mipmap.ic_launcher;
-        unlockTypeList.add(unlockType4);
-        
-
+        unlockTypeList.add(new UnlockType("Normal", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockType("Math", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockType("Puzzle", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockType("Shake", R.mipmap.ic_launcher));
 
         UnlockTypeAdapter adapter = new UnlockTypeAdapter(this, unlockTypeList);
         gvUnlockType.setAdapter(adapter);

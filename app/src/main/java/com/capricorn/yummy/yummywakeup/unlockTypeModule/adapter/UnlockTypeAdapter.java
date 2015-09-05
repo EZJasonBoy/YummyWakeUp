@@ -1,4 +1,4 @@
-package com.capricorn.yummy.yummywakeup.adapter;
+package com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.capricorn.yummy.yummywakeup.R;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
 
 import java.util.List;
 
@@ -18,15 +19,12 @@ import java.util.List;
 public class UnlockTypeAdapter extends BaseAdapter {
 
     private Context mContext;
-   /* private final String[] mTypeNames;
-    private final int[] mTypeImages;*/
     private List<UnlockType> unlockTypes;
     LayoutInflater inflater;
-    public UnlockTypeAdapter(Context c,List<UnlockType> data) {
+
+    public UnlockTypeAdapter(Context c, List<UnlockType> data) {
         mContext = c;
         inflater = LayoutInflater.from(mContext);
-       /* this.mTypeNames = typeNames;
-        this.mTypeImages = typeImages;*/
         unlockTypes = data;
     }
 
@@ -61,21 +59,14 @@ public class UnlockTypeAdapter extends BaseAdapter {
         }
 
         UnlockType unlockType = unlockTypes.get(position);
-        holder.textView.setText(unlockType.mTypeNames);
-        holder.imageView.setImageResource(unlockType.mTypeImages);
+        holder.textView.setText(unlockType.getTypeName());
+        holder.imageView.setImageResource(unlockType.getTypeImage());
         return convertView;
     }
-    
     
     class ViewHolder {
         TextView textView ;
         ImageView imageView;
-    }
-    
-    
-    public static class UnlockType{
-       public String mTypeNames;
-       public int mTypeImages;
     }
     
 }

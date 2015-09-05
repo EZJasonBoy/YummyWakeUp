@@ -1,6 +1,5 @@
 package com.capricorn.yummy.yummywakeup;
 
-import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -23,8 +21,8 @@ import com.capricorn.yummy.yummywakeup.alarm.Alarms;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
-import com.capricorn.yummy.yummywakeup.model.CurrentTime;
 import com.capricorn.yummy.yummywakeup.model.DaysOfWeek;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.UnlockTypeActivity;
 
 import java.util.Calendar;
 

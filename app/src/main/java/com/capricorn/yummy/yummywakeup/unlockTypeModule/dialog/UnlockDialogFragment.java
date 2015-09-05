@@ -1,4 +1,4 @@
-package com.capricorn.yummy.yummywakeup.dialog;
+package com.capricorn.yummy.yummywakeup.unlockTypeModule.dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

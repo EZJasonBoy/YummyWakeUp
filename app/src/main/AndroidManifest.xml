@@ -102,7 +102,7 @@
         </receiver>
 
         <activity
-            android:name=".UnlockTypeActivity"
+            android:name=".unlockTypeModule.UnlockTypeActivity"
             android:label="@string/title_activity_unlock_type" >
         </activity>
     </application>
