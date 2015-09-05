@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.capricorn.yummy.yummywakeup.R;
+
+import java.util.List;
 
 /**
  * Created by chuandong on 15/8/31.
@@ -16,47 +18,64 @@ import com.capricorn.yummy.yummywakeup.R;
 public class UnlockTypeAdapter extends BaseAdapter {
 
     private Context mContext;
-    private final String[] mTypeNames;
-    private final int[] mTypeImages;
-
-    public UnlockTypeAdapter(Context c,String[] typeNames,int[] typeImages) {
+   /* private final String[] mTypeNames;
+    private final int[] mTypeImages;*/
+    private List<UnlockType> unlockTypes;
+    LayoutInflater inflater;
+    public UnlockTypeAdapter(Context c,List<UnlockType> data) {
         mContext = c;
-        this.mTypeNames = typeNames;
-        this.mTypeImages = typeImages;
+        inflater = LayoutInflater.from(mContext);
+       /* this.mTypeNames = typeNames;
+        this.mTypeImages = typeImages;*/
+        unlockTypes = data;
     }
 
     @Override
     public int getCount() {
-        return mTypeNames.length;
+        return unlockTypes.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return unlockTypes.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View grid;
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        ViewHolder holder = null;
         if (convertView == null) {
-            grid = new View(mContext);
-            grid = inflater.inflate(R.layout.item_unlock_type, null);
-            TextView textView = (TextView) grid.findViewById(R.id.tv_unlock_type_item);
-            ImageButton imageView = (ImageButton) grid.findViewById(R.id.ib_unlock_type_item);
-            textView.setText(mTypeNames[position]);
-            imageView.setImageResource(mTypeImages[position]);
+            convertView = inflater.inflate(R.layout.item_unlock_type, null);
+
+            holder = new ViewHolder();
+            holder.imageView = (ImageView) convertView.findViewById(R.id.ib_unlock_type_item);
+            holder.textView = (TextView) convertView.findViewById(R.id.tv_unlock_type_item);
+            convertView.setTag(holder);
+            
         } else {
-            grid = (View) convertView;
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        return grid;
+        UnlockType unlockType = unlockTypes.get(position);
+        holder.textView.setText(unlockType.mTypeNames);
+        holder.imageView.setImageResource(unlockType.mTypeImages);
+        return convertView;
     }
+    
+    
+    class ViewHolder {
+        TextView textView ;
+        ImageView imageView;
+    }
+    
+    
+    public static class UnlockType{
+       public String mTypeNames;
+       public int mTypeImages;
+    }
+    
 }
