@@ -12,13 +12,31 @@
         android:layout_alignParentTop="true"
         android:src="@mipmap/ic_launcher"/>
 
-    <TextView
-        android:id="@+id/tv_unlock_type_item"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ib_unlock_type_item"
-        android:layout_marginTop="4dp"
-        android:text="dasda"
-        android:layout_centerHorizontal="true"/>
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/tv_diff_lvl"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ib_unlock_type_item"
+            android:layout_marginTop="4dp"
+            android:text="Easy" />
+
+        <TextView
+            android:id="@+id/tv_unlock_type_item"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ib_unlock_type_item"
+            android:layout_marginTop="4dp"
+            android:text="Unlock Type" />
+
+    </LinearLayout>
 
 </RelativeLayout>

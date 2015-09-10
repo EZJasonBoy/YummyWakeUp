@@ -2,17 +2,21 @@ package com.capricorn.yummy.yummywakeup.unlockTypeModule;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter.UnlockTypeAdapter;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.dialog.UnlockDialogFragment;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockDiffcultLevel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,20 @@ public class UnlockTypeActivity extends BaseActivity
     private GridView gvUnlockType;
     private Button btnAccept;
     private Button btnCancel;
+
+    private Handler uiHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.v("yummywakeup", "Type: " + msg.what  + "Difficult lvl: " + msg.arg1);
+            if(msg != null) {
+                // If it's not normal alarm
+                if(msg.what != 0) {
+                    ((TextView)gvUnlockType.getChildAt(msg.what).findViewById(R.id.tv_diff_lvl))
+                            .setText(UnlockDiffcultLevel.valueString(msg.arg1));
+                }
+            }
+        }
+    };
 
     @Override
     public void initToolbar() {
@@ -50,25 +68,13 @@ public class UnlockTypeActivity extends BaseActivity
                     case 3://Shake
                     default:
                         FragmentManager manager = getFragmentManager();
-                        UnlockDialogFragment dialog = new UnlockDialogFragment();
+                        UnlockDialogFragment dialog = new UnlockDialogFragment(uiHandler, position);
                         dialog.show(manager, "testTag");
                         break;
                 }
             }
         });
 
-  /*      gvUnlockType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.v("yummywakeup", "Unlock type clicking position:" + String.valueOf(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                Log.v("yummywakeup", "Unlock type clicking position:");
-
-            }
-        });*/
         btnAccept.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
     }
@@ -78,10 +84,10 @@ public class UnlockTypeActivity extends BaseActivity
 
         List<UnlockType> unlockTypeList = new ArrayList<>();
 
-        unlockTypeList.add(new UnlockType("Normal", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockType("Math", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockType("Puzzle", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockType("Shake", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockType("Normal", "Easy", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockType("Math", "Easy", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockType("Puzzle", "Easy", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockType("Shake", "Easy", R.mipmap.ic_launcher));
 
         UnlockTypeAdapter adapter = new UnlockTypeAdapter(this, unlockTypeList);
         gvUnlockType.setAdapter(adapter);

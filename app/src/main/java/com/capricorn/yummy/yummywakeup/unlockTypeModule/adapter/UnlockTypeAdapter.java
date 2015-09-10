@@ -52,6 +52,7 @@ public class UnlockTypeAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.imageView = (ImageView) convertView.findViewById(R.id.ib_unlock_type_item);
             holder.textView = (TextView) convertView.findViewById(R.id.tv_unlock_type_item);
+            holder.tvDiffLvl = (TextView) convertView.findViewById(R.id.tv_diff_lvl);
             convertView.setTag(holder);
             
         } else {
@@ -61,11 +62,13 @@ public class UnlockTypeAdapter extends BaseAdapter {
         UnlockType unlockType = unlockTypes.get(position);
         holder.textView.setText(unlockType.getTypeName());
         holder.imageView.setImageResource(unlockType.getTypeImage());
+        holder.tvDiffLvl.setText(unlockType.getmDiffLvl());
         return convertView;
     }
     
     class ViewHolder {
-        TextView textView ;
+        TextView textView;
+        TextView tvDiffLvl;
         ImageView imageView;
     }
     

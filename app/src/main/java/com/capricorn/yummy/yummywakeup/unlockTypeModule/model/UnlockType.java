@@ -6,10 +6,12 @@ package com.capricorn.yummy.yummywakeup.unlockTypeModule.model;
 public class UnlockType {
 
     private String mTypeName; // Unlock Type Name
+    private String mDiffLvl;
     private int mTypeImage;   // Image ID
 
-    public UnlockType(String mTypeName, int mTypeImage) {
+    public UnlockType(String mTypeName, String mDiffLvl, int mTypeImage) {
         this.mTypeName = mTypeName;
+        this.mDiffLvl = mDiffLvl;
         this.mTypeImage = mTypeImage;
     }
 
@@ -27,5 +29,13 @@ public class UnlockType {
 
     public void setTypeName(String mTypeName) {
         this.mTypeName = mTypeName;
+    }
+
+    public String getmDiffLvl() {
+        return mDiffLvl;
+    }
+
+    public void setmDiffLvl(String mDiffLvl) {
+        this.mDiffLvl = mDiffLvl;
     }
 }
