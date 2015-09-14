@@ -170,7 +170,9 @@ public class Alarms {
         values.put(Alarm.Columns.DAYS_OF_WEEK, alarm.daysOfWeek.getCoded());
         values.put(Alarm.Columns.VIBRATE, alarm.vibrate);
         values.put(Alarm.Columns.MESSAGE, alarm.label);
-        values.put(Alarm.Columns.UNLOCK_TYPE,alarm.unlockType);
+        values.put(Alarm.Columns.UNLOCK_TYPE, alarm.unlockType);
+        values.put(Alarm.Columns.UNLOCK_DIFF_LEVEL, alarm.unlockDiffLevel);
+
         // A null alert Uri indicates a silent alarm.
         values.put(Alarm.Columns.ALERT, alarm.alert == null ? ALARM_ALERT_SILENT
                 : alarm.alert.toString());
