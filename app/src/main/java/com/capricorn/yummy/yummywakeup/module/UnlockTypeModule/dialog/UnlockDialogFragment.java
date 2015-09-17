@@ -1,6 +1,5 @@
-package com.capricorn.yummy.yummywakeup.unlockTypeModule.dialog;
+package com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.dialog;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;

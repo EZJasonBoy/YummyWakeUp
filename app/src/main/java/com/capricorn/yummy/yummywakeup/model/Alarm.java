@@ -27,7 +27,7 @@ import android.util.Log;
 
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.alarm.Alarms;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model.UnlockType;
 
 import java.util.Calendar;
 

@@ -1,9 +1,8 @@
-package com.capricorn.yummy.yummywakeup.adapter;
+package com.capricorn.yummy.yummywakeup.module.RingtoneModule.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

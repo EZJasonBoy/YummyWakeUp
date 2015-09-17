@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RingtoneSetting"
+            android:name=".module.RingtoneModule.RingtoneSetting"
             android:label="@string/title_activity_ringtone_setting" />
 
         <!-- 设置闹钟 -->
@@ -102,7 +102,7 @@
         </receiver>
 
         <activity
-            android:name=".unlockTypeModule.UnlockTypeActivity"
+            android:name=".module.UnlockTypeModule.UnlockTypeActivity"
             android:label="@string/title_activity_unlock_type" >
         </activity>
     </application>

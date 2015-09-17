@@ -1,4 +1,4 @@
-package com.capricorn.yummy.yummywakeup;
+package com.capricorn.yummy.yummywakeup.module.RingtoneModule;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -6,20 +6,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
-import com.capricorn.yummy.yummywakeup.adapter.RingtoneCursorAdapter;
+import com.capricorn.yummy.yummywakeup.R;
+import com.capricorn.yummy.yummywakeup.module.RingtoneModule.adapter.RingtoneCursorAdapter;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

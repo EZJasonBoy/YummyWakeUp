@@ -45,8 +45,7 @@ import com.capricorn.yummy.yummywakeup.alarmType.UnlockFragment;
 import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.service.AlarmReceiver;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
-import com.capricorn.yummy.yummywakeup.util.CalculationFormula;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model.UnlockType;
 
 import java.util.Calendar;
 

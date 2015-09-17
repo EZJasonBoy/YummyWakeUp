@@ -1,4 +1,4 @@
-package com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter;
+package com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockDiffcultLevel;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockTypeItem;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model.UnlockDiffcultLevel;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model.UnlockTypeItem;
 
 import java.util.List;
 

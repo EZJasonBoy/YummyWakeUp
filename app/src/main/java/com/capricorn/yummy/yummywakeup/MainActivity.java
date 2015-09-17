@@ -22,8 +22,9 @@ import com.capricorn.yummy.yummywakeup.config.PreferenceKeys;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.model.DaysOfWeek;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.UnlockTypeActivity;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
+import com.capricorn.yummy.yummywakeup.module.RingtoneModule.RingtoneSetting;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.UnlockTypeActivity;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model.UnlockType;
 
 import java.util.Calendar;
 

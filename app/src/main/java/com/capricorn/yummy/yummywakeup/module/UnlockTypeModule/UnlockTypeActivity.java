@@ -1,4 +1,4 @@
-package com.capricorn.yummy.yummywakeup.unlockTypeModule;
+package com.capricorn.yummy.yummywakeup.module.UnlockTypeModule;
 
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -15,12 +15,11 @@ import android.widget.TextView;
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.alarm.Alarms;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter.UnlockTypeAdapter;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.dialog.UnlockDialogFragment;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.adapter.UnlockTypeAdapter;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.dialog.UnlockDialogFragment;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockTypeItem;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockDiffcultLevel;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model.UnlockTypeItem;
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model.UnlockDiffcultLevel;
 
 import java.util.ArrayList;
 import java.util.List;

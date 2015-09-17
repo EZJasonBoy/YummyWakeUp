@@ -1,4 +1,4 @@
-package com.capricorn.yummy.yummywakeup.unlockTypeModule.model;
+package com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model;
 
 /**
  * Created by chuandong on 15/9/10.
