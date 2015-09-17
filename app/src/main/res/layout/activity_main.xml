@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:textColor="@color/color_3"
+            android:textColor="@color/color_white"
             android:textSize="30sp" />
 
         <Switch
@@ -91,7 +91,7 @@
                 android:onClick="setRepeat"
                 android:layout_gravity="center"
                 android:text="M"
-                android:textColor="@color/color_3" />
+                android:textColor="@color/color_white" />
         </FrameLayout>
 
         <FrameLayout
@@ -107,7 +107,7 @@
                 android:onClick="setRepeat"
                 android:text="T"
                 android:layout_gravity="center"
-                android:textColor="@color/color_3" />
+                android:textColor="@color/color_white" />
 
         </FrameLayout>
 
@@ -126,7 +126,7 @@
                 android:text="W"
                 android:layout_gravity="center"
 
-                android:textColor="@color/color_3" />
+                android:textColor="@color/color_white" />
         </FrameLayout>
 
         <FrameLayout
@@ -144,7 +144,7 @@
                 android:text="T"
                 android:layout_gravity="center"
 
-                android:textColor="@color/color_3" />
+                android:textColor="@color/color_white" />
 
         </FrameLayout>
 
@@ -162,7 +162,7 @@
                 android:text="F"             
                 android:layout_gravity="center"
 
-                android:textColor="@color/color_3" />
+                android:textColor="@color/color_white" />
         </FrameLayout>
 
         <FrameLayout
@@ -179,7 +179,7 @@
                 android:text="S"
                 android:layout_gravity="center"
 
-                android:textColor="@color/color_3" />
+                android:textColor="@color/color_white" />
         </FrameLayout>
 
         <FrameLayout
@@ -196,7 +196,7 @@
                 android:text="W"
                 android:layout_gravity="center"
 
-                android:textColor="@color/color_3" />
+                android:textColor="@color/color_white" />
         </FrameLayout>
 
 
@@ -223,7 +223,7 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:text="@string/action_vibrate"
-            android:textColor="@color/color_3" />
+            android:textColor="@color/color_white" />
 
         <Switch
             android:id="@+id/sw_vibrate"
@@ -256,7 +256,7 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:text="@string/action_ringtone"
-            android:textColor="@color/color_3" />
+            android:textColor="@color/color_white" />
 
         <com.capricorn.yummy.yummywakeup.view.RobotoTextView
             android:id="@+id/tv_ringtone"
@@ -265,7 +265,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="静音"
-            android:textColor="@color/color_3" />
+            android:textColor="@color/color_white" />
 
     </RelativeLayout>
     <!-- Divider-->
@@ -293,7 +293,7 @@
             android:drawablePadding="8dp"
             android:gravity="center_vertical"
             android:text="@string/action_alarm_lock_open"
-            android:textColor="@color/color_3" />
+            android:textColor="@color/color_white" />
 
         <com.capricorn.yummy.yummywakeup.view.RobotoTextView
             android:id="@+id/tv_unlock_type"
@@ -302,7 +302,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="Puzzle"
-            android:textColor="@color/color_3" />
+            android:textColor="@color/color_white" />
 
     </RelativeLayout>
 

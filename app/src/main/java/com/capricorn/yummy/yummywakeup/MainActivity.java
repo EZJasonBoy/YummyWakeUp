@@ -136,6 +136,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, UnlockTypeActivity.class);
+                intent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
                 startActivityForResult(intent, 1);
             }
         });
@@ -193,6 +194,9 @@ public class MainActivity extends BaseActivity {
         if (alarmId == ALARM_NOT_SET) {
             // If no alarm available, set a default alarm with current time
             alarm = new Alarm();
+            // Todo to test
+            //alarm.unlockType = Alarm.AlarmUnlockType.Calculation.value();
+            //alarm.unlockDiffLevel = 2;
             // Set alarm time on TextView
             setAlarmTimeOnTextView(alarm);
             alarmId = Alarms.addAlarm(this, alarm);
@@ -245,7 +249,8 @@ public class MainActivity extends BaseActivity {
                 alarm.hour = hourOfDay;
                 alarm.minutes = minute;
                 alarm.label = "闹钟 巴拉拉";
-                alarm.unlockType = Alarm.AlarmUnlockType.Normal.value();
+                alarm.unlockType = Alarm.AlarmUnlockType.Calculation.value();
+                alarm.unlockDiffLevel = 2;
 
                 long time = Alarms.setAlarm(MainActivity.this, alarm);
 

@@ -1,6 +1,8 @@
 package com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter;
 
 import android.content.Context;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.capricorn.yummy.yummywakeup.R;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockDiffcultLevel;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
 
 import java.util.List;
@@ -20,12 +24,14 @@ public class UnlockTypeAdapter extends BaseAdapter {
 
     private Context mContext;
     private List<UnlockType> unlockTypes;
+    private Alarm mAlarm;
     LayoutInflater inflater;
 
-    public UnlockTypeAdapter(Context c, List<UnlockType> data) {
+    public UnlockTypeAdapter(Context c, List<UnlockType> data, Alarm alarm) {
         mContext = c;
         inflater = LayoutInflater.from(mContext);
         unlockTypes = data;
+        mAlarm = alarm;
     }
 
     @Override
@@ -50,7 +56,7 @@ public class UnlockTypeAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_unlock_type, null);
 
             holder = new ViewHolder();
-            holder.imageView = (ImageView) convertView.findViewById(R.id.ib_unlock_type_item);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.iv_unlock_type_item);
             holder.textView = (TextView) convertView.findViewById(R.id.tv_unlock_type_item);
             holder.tvDiffLvl = (TextView) convertView.findViewById(R.id.tv_diff_lvl);
             convertView.setTag(holder);
@@ -62,7 +68,13 @@ public class UnlockTypeAdapter extends BaseAdapter {
         UnlockType unlockType = unlockTypes.get(position);
         holder.textView.setText(unlockType.getTypeName());
         holder.imageView.setImageResource(unlockType.getTypeImage());
-        holder.tvDiffLvl.setText(unlockType.getmDiffLvl());
+
+        if(position == mAlarm.unlockType) {
+            holder.tvDiffLvl.setText(UnlockDiffcultLevel.valueString(mAlarm.unlockDiffLevel));
+            holder.imageView.setBackgroundResource(R.color.alizarin);
+        }else{
+            holder.tvDiffLvl.setText(unlockType.getmDiffLvl());
+        }
         return convertView;
     }
     

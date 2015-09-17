@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.capricorn.yummy.yummywakeup.R;
+import com.capricorn.yummy.yummywakeup.alarm.Alarms;
+import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter.UnlockTypeAdapter;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.dialog.UnlockDialogFragment;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
@@ -27,16 +30,26 @@ public class UnlockTypeActivity extends BaseActivity
     private GridView gvUnlockType;
     private Button btnAccept;
     private Button btnCancel;
+    private Alarm mAlarm;
 
     private Handler uiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             Log.v("yummywakeup", "Type: " + msg.what  + "Difficult lvl: " + msg.arg1);
             if(msg != null) {
-                // If it's not normal alarm
+                // msg.what is unlock type button ID/ unlocktype ID
                 if(msg.what != 0) {
-                    ((TextView)gvUnlockType.getChildAt(msg.what).findViewById(R.id.tv_diff_lvl))
+                    ((TextView) gvUnlockType.getChildAt(msg.what).findViewById(R.id.tv_diff_lvl))
                             .setText(UnlockDiffcultLevel.valueString(msg.arg1));
+                    ((ImageView) gvUnlockType.getChildAt(msg.what).findViewById(R.id.iv_unlock_type_item))
+                            .setBackgroundResource(R.color.alizarin);
+                    // Reset all the other buttons status
+                    for (int i = 0; i < 4 ; i++) {
+                        if(i != msg.what) {
+                            ((ImageView) gvUnlockType.getChildAt(i).findViewById(R.id.iv_unlock_type_item))
+                                    .setBackgroundResource(R.color.color_white);
+                        }
+                    }
                 }
             }
         }
@@ -81,6 +94,7 @@ public class UnlockTypeActivity extends BaseActivity
 
     @Override
     public void initData() {
+        mAlarm = getIntent().getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
 
         List<UnlockType> unlockTypeList = new ArrayList<>();
 
@@ -89,7 +103,7 @@ public class UnlockTypeActivity extends BaseActivity
         unlockTypeList.add(new UnlockType("Puzzle", "Easy", R.mipmap.ic_launcher));
         unlockTypeList.add(new UnlockType("Shake", "Easy", R.mipmap.ic_launcher));
 
-        UnlockTypeAdapter adapter = new UnlockTypeAdapter(this, unlockTypeList);
+        UnlockTypeAdapter adapter = new UnlockTypeAdapter(this, unlockTypeList, mAlarm);
         gvUnlockType.setAdapter(adapter);
     }
 
