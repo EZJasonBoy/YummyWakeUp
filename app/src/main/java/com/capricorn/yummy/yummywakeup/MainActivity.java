@@ -23,6 +23,7 @@ import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.model.DaysOfWeek;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.UnlockTypeActivity;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
 
 import java.util.Calendar;
 
@@ -205,6 +206,8 @@ public class MainActivity extends BaseActivity {
             alarm = Alarms.getAlarm(getContentResolver(), alarmId);
             setAlarmTimeOnTextView(alarm);
         }
+        // Update unlockType TextView
+        tvUnlockType.setText(UnlockType.valueString(alarm.unlockType));
     }
 
     /**
@@ -249,7 +252,7 @@ public class MainActivity extends BaseActivity {
                 alarm.hour = hourOfDay;
                 alarm.minutes = minute;
                 alarm.label = "闹钟 巴拉拉";
-                alarm.unlockType = Alarm.AlarmUnlockType.Calculation.value();
+                alarm.unlockType = UnlockType.Calculation.value();
                 alarm.unlockDiffLevel = 2;
 
                 long time = Alarms.setAlarm(MainActivity.this, alarm);
@@ -341,14 +344,18 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case 0:
+            case 0: // Ringtone
                 if (resultCode == RESULT_OK) {
                     alarm.alert = Uri.parse(data.getStringExtra("uri"));
                     Alarms.setAlarm(MainActivity.this, alarm);
                 }
                 break;
-            case 1:
-                // ToDo unlock type
+            case 1: // Unlock Type
+                if (resultCode == RESULT_OK) {
+                    alarm = data.getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
+                    Alarms.setAlarm(MainActivity.this, alarm);
+                    tvUnlockType.setText(UnlockType.valueString(alarm.unlockType));
+                }
                 break;
             default:
                 break;

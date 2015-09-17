@@ -19,6 +19,7 @@ import com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter.UnlockTypeAdapte
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.dialog.UnlockDialogFragment;
 import com.capricorn.yummy.yummywakeup.infrastructure.activity.BaseActivity;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockTypeItem;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockDiffcultLevel;
 
 import java.util.ArrayList;
@@ -54,6 +55,9 @@ public class UnlockTypeActivity extends BaseActivity
                                 .setBackgroundResource(R.color.color_white);
                     }
                 }
+                // Reset alarm
+                mAlarm.unlockType = msg.what;
+                mAlarm.unlockDiffLevel = msg.arg1;
             }
         }
     };
@@ -102,12 +106,12 @@ public class UnlockTypeActivity extends BaseActivity
     public void initData() {
         mAlarm = getIntent().getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
 
-        List<UnlockType> unlockTypeList = new ArrayList<>();
+        List<UnlockTypeItem> unlockTypeList = new ArrayList<>();
 
-        unlockTypeList.add(new UnlockType("Normal", "Easy", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockType("Math", "Easy", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockType("Puzzle", "Easy", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockType("Shake", "Easy", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockTypeItem("Normal", "Easy", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockTypeItem("Math", "Easy", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockTypeItem("Puzzle", "Easy", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockTypeItem("Shake", "Easy", R.mipmap.ic_launcher));
 
         UnlockTypeAdapter adapter = new UnlockTypeAdapter(this, unlockTypeList, mAlarm);
         gvUnlockType.setAdapter(adapter);
@@ -124,6 +128,7 @@ public class UnlockTypeActivity extends BaseActivity
         switch(v.getId()) {
             case R.id.btn_unlock_accept:
                 // ToDo
+                intent.putExtra(Alarms.ALARM_INTENT_EXTRA, mAlarm);
                 setResult(RESULT_OK, intent);
                 finish();
                 break;

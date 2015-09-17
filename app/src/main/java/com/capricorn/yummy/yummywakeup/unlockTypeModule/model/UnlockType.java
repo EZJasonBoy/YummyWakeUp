@@ -5,10 +5,10 @@ package com.capricorn.yummy.yummywakeup.unlockTypeModule.model;
  */
 public enum UnlockType {
 
-    type1 ("Normal"),
-    type2 ("Calculation"),
-    type3 ("Puzzle"),
-    type4 ("Shake");
+    Normal ("Normal"),
+    Calculation ("Calculation"),
+    Puzzle ("Puzzle"),
+    Shake ("Shake");
 
     private final String type;
 
@@ -24,14 +24,16 @@ public enum UnlockType {
         return this.type;
     }
 
-    public static int valueInt(String s) {
-        if(s == type1.toString()) {
+    public int value() { return valueInt(type);}
+
+    private int valueInt(String s) {
+        if(s == Normal.toString()) {
             return 0;
-        } else if(s == type2.toString()) {
+        } else if(s == Calculation.toString()) {
             return 1;
-        } else if(s == type3.toString()) {
+        } else if(s == Puzzle.toString()) {
             return 2;
-        } else if(s == type4.toString()) {
+        } else if(s == Shake.toString()) {
             return 3;
         }
         return -1;
@@ -40,13 +42,13 @@ public enum UnlockType {
     public static String valueString(int i) {
         switch (i) {
             case 0:
-                return type1.toString();
+                return Normal.toString();
             case 1:
-                return type2.toString();
+                return Calculation.toString();
             case 2:
-                return type3.toString();
+                return Puzzle.toString();
             case 3:
-                return type4.toString();
+                return Shake.toString();
         }
         return null;
     }

@@ -1,8 +1,6 @@
 package com.capricorn.yummy.yummywakeup.unlockTypeModule.adapter;
 
 import android.content.Context;
-import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +11,7 @@ import android.widget.TextView;
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.model.Alarm;
 import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockDiffcultLevel;
-import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockTypeItem;
 
 import java.util.List;
 
@@ -23,11 +21,11 @@ import java.util.List;
 public class UnlockTypeAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<UnlockType> unlockTypes;
+    private List<UnlockTypeItem> unlockTypes;
     private Alarm mAlarm;
     LayoutInflater inflater;
 
-    public UnlockTypeAdapter(Context c, List<UnlockType> data, Alarm alarm) {
+    public UnlockTypeAdapter(Context c, List<UnlockTypeItem> data, Alarm alarm) {
         mContext = c;
         inflater = LayoutInflater.from(mContext);
         unlockTypes = data;
@@ -65,7 +63,7 @@ public class UnlockTypeAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        UnlockType unlockType = unlockTypes.get(position);
+        UnlockTypeItem unlockType = unlockTypes.get(position);
         holder.textView.setText(unlockType.getTypeName());
         holder.imageView.setImageResource(unlockType.getTypeImage());
         if(position == mAlarm.unlockType && position != 0) { // If selected and not normal unlocktype

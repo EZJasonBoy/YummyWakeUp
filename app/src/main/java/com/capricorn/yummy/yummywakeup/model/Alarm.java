@@ -27,6 +27,7 @@ import android.util.Log;
 
 import com.capricorn.yummy.yummywakeup.R;
 import com.capricorn.yummy.yummywakeup.alarm.Alarms;
+import com.capricorn.yummy.yummywakeup.unlockTypeModule.model.UnlockType;
 
 import java.util.Calendar;
 
@@ -239,7 +240,7 @@ public final class Alarm implements Parcelable {
         vibrate = true;
         daysOfWeek = new DaysOfWeek(0);
         alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        unlockType = AlarmUnlockType.Normal.value;
+        unlockType = UnlockType.Normal.value();
         unlockDiffLevel = 1;
     }
 
@@ -253,25 +254,5 @@ public final class Alarm implements Parcelable {
             return context.getString(R.string.default_label);
         }
         return label;
-    }
-
-    /**
-     * Creates the enum with static values
-     */
-    public enum AlarmUnlockType {
-
-        Normal(1),
-        Calculation(2),
-        Puzzle(3),
-        Shake(4);
-        private final int value;
-
-        private AlarmUnlockType(int value) {
-            this.value = value;
-        }
-
-        public int value() {
-            return value;
-        }
     }
 }
