@@ -43,12 +43,15 @@ public class UnlockTypeActivity extends BaseActivity
                             .setText(UnlockDiffcultLevel.valueString(msg.arg1));
                     ((ImageView) gvUnlockType.getChildAt(msg.what).findViewById(R.id.iv_unlock_type_item))
                             .setBackgroundResource(R.color.alizarin);
-                    // Reset all the other buttons status
-                    for (int i = 0; i < 4 ; i++) {
-                        if(i != msg.what) {
-                            ((ImageView) gvUnlockType.getChildAt(i).findViewById(R.id.iv_unlock_type_item))
-                                    .setBackgroundResource(R.color.color_white);
-                        }
+                } else {
+                    ((ImageView) gvUnlockType.getChildAt(msg.what).findViewById(R.id.iv_unlock_type_item))
+                            .setBackgroundResource(R.color.alizarin);
+                }
+                // Reset all the other buttons status
+                for (int i = 0; i < 4 ; i++) {
+                    if(i != msg.what) {
+                        ((ImageView) gvUnlockType.getChildAt(i).findViewById(R.id.iv_unlock_type_item))
+                                .setBackgroundResource(R.color.color_white);
                     }
                 }
             }
@@ -75,6 +78,9 @@ public class UnlockTypeActivity extends BaseActivity
                 Log.v("yummywakeup", "Unlock type clicking position:" + String.valueOf(position));
                 switch (position) {
                     case 0://Normal
+                        Message msg = new Message();
+                        msg.what = 0;
+                        uiHandler.sendMessage(msg);
                         break;
                     case 1://Calculation
                     case 2://Puzzle

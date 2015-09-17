@@ -68,11 +68,12 @@ public class UnlockTypeAdapter extends BaseAdapter {
         UnlockType unlockType = unlockTypes.get(position);
         holder.textView.setText(unlockType.getTypeName());
         holder.imageView.setImageResource(unlockType.getTypeImage());
-
-        if(position == mAlarm.unlockType) {
+        if(position == mAlarm.unlockType && position != 0) { // If selected and not normal unlocktype
             holder.tvDiffLvl.setText(UnlockDiffcultLevel.valueString(mAlarm.unlockDiffLevel));
             holder.imageView.setBackgroundResource(R.color.alizarin);
-        }else{
+        } else if(position == 0) { // If normal unlocktype, no need to show diff lvl
+            holder.tvDiffLvl.setVisibility(View.GONE);
+        } else {
             holder.tvDiffLvl.setText(unlockType.getmDiffLvl());
         }
         return convertView;
