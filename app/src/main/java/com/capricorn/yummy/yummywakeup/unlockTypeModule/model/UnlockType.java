@@ -1,41 +1,53 @@
 package com.capricorn.yummy.yummywakeup.unlockTypeModule.model;
 
 /**
- * Created by chuandong on 15/9/5.
+ * Created by chuandong on 15/9/17.
  */
-public class UnlockType {
+public enum UnlockType {
 
-    private String mTypeName; // Unlock Type Name
-    private String mDiffLvl;
-    private int mTypeImage;   // Image ID
+    type1 ("Normal"),
+    type2 ("Calculation"),
+    type3 ("Puzzle"),
+    type4 ("Shake");
 
-    public UnlockType(String mTypeName, String mDiffLvl, int mTypeImage) {
-        this.mTypeName = mTypeName;
-        this.mDiffLvl = mDiffLvl;
-        this.mTypeImage = mTypeImage;
+    private final String type;
+
+    private UnlockType(String s) {
+        type = s;
     }
 
-    public int getTypeImage() {
-        return mTypeImage;
+    public boolean equalsName(String otherName) {
+        return (otherName == null) ? false : type.equals(otherName);
     }
 
-    public void setTypeImage(int mTypeImage) {
-        this.mTypeImage = mTypeImage;
+    public String toString() {
+        return this.type;
     }
 
-    public String getTypeName() {
-        return mTypeName;
+    public static int valueInt(String s) {
+        if(s == type1.toString()) {
+            return 0;
+        } else if(s == type2.toString()) {
+            return 1;
+        } else if(s == type3.toString()) {
+            return 2;
+        } else if(s == type4.toString()) {
+            return 3;
+        }
+        return -1;
     }
 
-    public void setTypeName(String mTypeName) {
-        this.mTypeName = mTypeName;
-    }
-
-    public String getmDiffLvl() {
-        return mDiffLvl;
-    }
-
-    public void setmDiffLvl(String mDiffLvl) {
-        this.mDiffLvl = mDiffLvl;
+    public static String valueString(int i) {
+        switch (i) {
+            case 0:
+                return type1.toString();
+            case 1:
+                return type2.toString();
+            case 2:
+                return type3.toString();
+            case 3:
+                return type4.toString();
+        }
+        return null;
     }
 }
