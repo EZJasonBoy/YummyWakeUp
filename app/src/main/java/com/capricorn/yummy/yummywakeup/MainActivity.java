@@ -12,6 +12,7 @@ import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -33,7 +34,12 @@ public class MainActivity extends BaseActivity {
     private final static String M12 = "h:mm";
     private final static String FORMAT_WDAY_MONTH_DAY = "EE, MMMM dd";
     private final static int ALARM_NOT_SET = -1;
+
     private final Handler mHandler = new Handler();
+
+    private RelativeLayout rlRingtone;
+    private RelativeLayout rlAlarmType;
+
     private TextView tvCurrentTime;
     private TextView tvWeekMonthDay;
     private TextView tvAlarmTime;
@@ -82,6 +88,9 @@ public class MainActivity extends BaseActivity {
         mCalendar = Calendar.getInstance();
         mFormat = Alarms.get24HourMode(MainActivity.this) ? Alarms.M24 : M12;
 
+        rlRingtone = (RelativeLayout) findViewById(R.id.rl_ringtone);
+        rlAlarmType = (RelativeLayout) findViewById(R.id.rl_alarm_type);
+
         tvCurrentTime = (TextView) findViewById(R.id.tv_curentTime);
         tvWeekMonthDay = (TextView) findViewById(R.id.tv_week_month_day);
         tvAlarmTime = (TextView) findViewById(R.id.tv_alarmTime);
@@ -126,7 +135,7 @@ public class MainActivity extends BaseActivity {
             }
         });
         // Set RingtoneSetting
-        tvRingTone.setOnClickListener(new View.OnClickListener() {
+        rlRingtone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RingtoneSetting.class);
@@ -134,7 +143,7 @@ public class MainActivity extends BaseActivity {
             }
         });
         // Set unlock type
-        tvUnlockType.setOnClickListener(new View.OnClickListener() {
+        rlAlarmType.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, UnlockTypeActivity.class);

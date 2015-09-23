@@ -214,7 +214,6 @@
         android:layout_marginRight="16dp"
         android:orientation="horizontal">
 
-
         <com.capricorn.yummy.yummywakeup.view.RobotoTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -242,6 +241,7 @@
         android:layout_marginRight="16dp" />
     <!-- Ringtone -->
     <RelativeLayout
+        android:id="@+id/rl_ringtone"
         android:layout_width="fill_parent"
         android:layout_height="56dp"
         android:layout_marginLeft="16dp"
@@ -279,6 +279,7 @@
 
     <!-- Alarm Type-->
     <RelativeLayout
+        android:id="@+id/rl_alarm_type"
         android:layout_width="fill_parent"
         android:layout_height="56dp"
         android:layout_marginLeft="16dp"
