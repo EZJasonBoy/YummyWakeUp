@@ -1,13 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+    <!-- Tool Bar -->
+    <include
+        android:id="@+id/app_tool_bar"
+        layout="@layout/toolbar"/>
+
     <!-- Voice Control -->
     <RelativeLayout
         android:id="@+id/rl_voice_control"
         android:layout_width="fill_parent"
         android:layout_height="56dp"
+        android:layout_below="@id/app_tool_bar"
         android:gravity="center_vertical">
 
         <TextView

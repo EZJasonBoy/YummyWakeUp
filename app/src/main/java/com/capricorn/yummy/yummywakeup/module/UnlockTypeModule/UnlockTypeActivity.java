@@ -4,7 +4,9 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -63,6 +65,10 @@ public class UnlockTypeActivity extends BaseActivity
 
     @Override
     public void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
     }
 

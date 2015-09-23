@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.provider.MediaStore;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,7 +31,12 @@ public class RingtoneSetting extends BaseActivity {
     private List<String> listUri;
 
     @Override
-    public void initToolbar() {}
+    public void initToolbar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_tool_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
 
     @Override
     public void initView() {

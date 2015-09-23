@@ -2,7 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primaryColor"
     tools:context="com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.UnlockTypeActivity">
+    <!-- Tool Bar -->
+    <include
+        android:id="@+id/app_tool_bar"
+        layout="@layout/toolbar"/>
 
     <GridView
         android:id="@+id/gv_unlock_type"

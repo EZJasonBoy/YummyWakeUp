@@ -91,5 +91,6 @@
     <string name="cancel">Cancel</string>
     <string name="accept">Accept</string>
     <string name="title_activity_unlock_type">UnlockTypeActivity</string>
+    <string name="unlock_type">Unlock Type</string>
 
 </resources>
