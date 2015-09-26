@@ -1,5 +1,9 @@
 package com.capricorn.yummy.yummywakeup.util;
 
+import android.util.Log;
+
+import com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model.UnlockDiffcultLevel;
+
 import java.util.Random;
 
 /**
@@ -22,12 +26,12 @@ public class CalculationFormula {
     }
 
     /**
-     * Random int between 0 and 100
+     * Random int between 1 and 100
      * @return
      */
     public static int getRandomInt() {
-        Random rand = new Random(100);
-        return rand.nextInt();
+        Random rand = new Random();
+        return rand.nextInt(100) + 1; // Return 1 to 100
     }
 
     /**
@@ -52,13 +56,16 @@ public class CalculationFormula {
      * @param difficultLevel
      * @return formula in int[]
      */
-    public static int[] generateFormula(int difficultLevel) {
+    public static int[] generateFormula(UnlockDiffcultLevel difficultLevel) {
         int[] formula = null;
         switch (difficultLevel) {
-            case 1:
+            case EASY:
+                formula = initFormula(3);
+                break;
+            case NORMAL:
                 formula = initFormula(5);
                 break;
-            case 2:
+            case HARD:
                 formula = initFormula(7);
                 break;
             // ToDo more difficultLevel if needed
@@ -121,6 +128,7 @@ public class CalculationFormula {
         for (int i = 0; i < formula.length; i++) {
             if(isEvenOrOdd(i)) {
                 formula[i] = getRandomInt();
+                Log.d("aaa", "" + formula[i]);
             }else{
                 formula[i] = getRandomOperation();
             }
