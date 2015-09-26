@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -113,10 +112,10 @@ public class UnlockTypeActivity extends BaseActivity
 
         List<UnlockTypeItem> unlockTypeList = new ArrayList<>();
 
-        unlockTypeList.add(new UnlockTypeItem("Normal", "Easy", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockTypeItem("Math", "Easy", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockTypeItem("Puzzle", "Easy", R.mipmap.ic_launcher));
-        unlockTypeList.add(new UnlockTypeItem("Shake", "Easy", R.mipmap.ic_launcher));
+        unlockTypeList.add(new UnlockTypeItem("Normal", "Easy", R.drawable.unlock_type_alarm));
+        unlockTypeList.add(new UnlockTypeItem("Math", "Easy", R.drawable.unlock_type_math));
+        unlockTypeList.add(new UnlockTypeItem("Puzzle", "Easy", R.drawable.unlock_type_puzzle));
+        unlockTypeList.add(new UnlockTypeItem("Shake", "Easy", R.drawable.unlock_type_shake));
 
         UnlockTypeAdapter adapter = new UnlockTypeAdapter(this, unlockTypeList, mAlarm);
         gvUnlockType.setAdapter(adapter);

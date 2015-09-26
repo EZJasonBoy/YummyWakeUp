@@ -16,8 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_alignParentBottom="true">
 
         <TextView
             android:id="@+id/tv_diff_lvl"
@@ -26,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_unlock_type_item"
             android:layout_marginTop="4dp"
-            android:text="Easy" />
+            android:text="Easy"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/tv_unlock_type_item"
@@ -35,7 +35,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_unlock_type_item"
             android:layout_marginTop="4dp"
-            android:text="Unlock Type" />
+            android:text="Unlock Type"
+            android:singleLine="true"/>
 
     </LinearLayout>
 
