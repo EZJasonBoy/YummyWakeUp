@@ -52,7 +52,7 @@ public class UnlockTypeActivity extends BaseActivity
                 for (int i = 0; i < 4 ; i++) {
                     if(i != msg.what) {
                         ((ImageView) gvUnlockType.getChildAt(i).findViewById(R.id.iv_unlock_type_item))
-                                .setBackgroundResource(R.color.color_white);
+                                .setBackgroundResource(R.color.primaryColor);
                     }
                 }
                 // Reset alarm
