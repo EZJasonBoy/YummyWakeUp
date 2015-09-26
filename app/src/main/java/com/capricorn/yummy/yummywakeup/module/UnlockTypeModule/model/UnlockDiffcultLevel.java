@@ -5,9 +5,9 @@ package com.capricorn.yummy.yummywakeup.module.UnlockTypeModule.model;
  */
 public enum UnlockDiffcultLevel {
 
-    level1 ("Easy"),
-    level2 ("Normal"),
-    level3 ("Hard");
+    EASY ("Easy"),
+    NORMAL ("Normal"),
+    HARD ("Hard");
 
     private final String lvl;
 
@@ -24,11 +24,11 @@ public enum UnlockDiffcultLevel {
     }
 
     public static int valueInt(String s) {
-        if(s == level1.toString()) {
+        if(s == EASY.toString()) {
             return 0;
-        } else if(s == level2.toString()) {
+        } else if(s == NORMAL.toString()) {
             return 1;
-        } else if(s == level3.toString()) {
+        } else if(s == HARD.toString()) {
             return 2;
         }
         return -1;
@@ -37,11 +37,11 @@ public enum UnlockDiffcultLevel {
     public static String valueString(int i) {
         switch (i) {
             case 0:
-                return level1.toString();
+                return EASY.toString();
             case 1:
-                return level2.toString();
+                return NORMAL.toString();
             case 2:
-                return level3.toString();
+                return HARD.toString();
         }
         return null;
     }
