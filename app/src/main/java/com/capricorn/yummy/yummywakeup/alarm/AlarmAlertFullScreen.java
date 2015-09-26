@@ -95,23 +95,26 @@ public class AlarmAlertFullScreen extends FragmentActivity implements UnlockFrag
         // ToDo why here it needs to get alarm for another time
         mAlarm = Alarms.getAlarm(getContentResolver(), mAlarm.id);
 
+        Log.d("yummywakeup", "Alarm will infalte fragment " + mAlarm.unlockType);
         FragmentManager manager = getFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();
         /**
          * 判断解锁方式，根据解锁方式弹出解锁框，显示Fragment
          */
         if (mAlarm.unlockType == UnlockType.Normal.value()){
+            Log.d("yummywakeup", "Alarm infaltes fragment Normal Alarm");
             NormalAlarm normalAlarm = new NormalAlarm();
             fragmentTransaction.replace(R.id.fg_alarm, normalAlarm);
             fragmentTransaction.commit();
         }else if (mAlarm.unlockType == UnlockType.Calculation.value()){
+            Log.d("yummywakeup", "Alarm infaltes fragment Math Alarm");
             CalculationAlarm calculationAlarm = new CalculationAlarm();
             fragmentTransaction.replace(R.id.fg_alarm, calculationAlarm);
             fragmentTransaction.commit();
         }else if (mAlarm.unlockType == UnlockType.Puzzle.value()){
-            //解谜题
+            Log.d("yummywakeup", "Alarm infaltes fragment Puzzle Alarm");
         }else if (mAlarm.unlockType == UnlockType.Shake.value()){
-            //摇晃
+            Log.d("yummywakeup", "Alarm infaltes fragment Shake Alarm");
         }
 
         // Get the volume/camera button behavior setting

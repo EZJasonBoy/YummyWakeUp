@@ -15,12 +15,20 @@ public enum UnlockDiffcultLevel {
         lvl = s;
     }
 
+    private UnlockDiffcultLevel(int s) {
+        lvl = valueString(s);
+    }
+
     public boolean equalsName(String otherName) {
         return (otherName == null) ? false : lvl.equals(otherName);
     }
 
     public String toString() {
         return this.lvl;
+    }
+
+    public int toInt() {
+        return valueInt(this.lvl);
     }
 
     public static int valueInt(String s) {
@@ -42,6 +50,18 @@ public enum UnlockDiffcultLevel {
                 return NORMAL.toString();
             case 2:
                 return HARD.toString();
+        }
+        return null;
+    }
+
+    public static UnlockDiffcultLevel valueObject(int i) {
+        switch (i) {
+            case 0:
+                return EASY;
+            case 1:
+                return NORMAL;
+            case 2:
+                return HARD;
         }
         return null;
     }
