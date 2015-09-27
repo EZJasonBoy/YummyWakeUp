@@ -273,7 +273,7 @@ public class MainActivity extends BaseActivity {
                 // Set alarm time on TextView
                 setAlarmTimeOnTextView(alarm);
             }
-        }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true).show();
+        }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), Alarms.get24HourMode(MainActivity.this)).show();
     }
 
     /**
