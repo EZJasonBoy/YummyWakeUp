@@ -3,7 +3,9 @@ package com.capricorn.yummy.yummywakeup.alarmType;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,9 +76,14 @@ public class CalculationAlarm extends UnlockFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 // If typed number is equal to result, then enable image and button
-                if(Integer.parseInt(etCalculResult.getText().toString()) == result) {
-                    // ToDo change image status
-                    btnCloseAlarm.setEnabled(true);
+                if(!TextUtils.isEmpty(etCalculResult.getText())) {
+                    if(Integer.parseInt(etCalculResult.getText().toString()) == result) {
+                        btnCloseAlarm.setEnabled(true);
+                        ivFlagResult.setBackgroundResource(R.drawable.icon_active);
+                    } else {
+                        btnCloseAlarm.setEnabled(false);
+                        ivFlagResult.setBackgroundResource(R.drawable.icon_inactive);
+                    }
                 }
             }
         });

@@ -82,16 +82,16 @@ public class CalculationFormula {
      */
     public static int getFormulaResult(int[] formula) {
         int result = 0;
-        int previous = 0;
+        int signal = PLUS_SIGN;
         for (int i = 0; i < formula.length; i++) {
             if(isEvenOrOdd(i)) {
-                previous = formula[i];
-            }else{
-                if(formula[i] == PLUS_SIGN) {
-                    result += previous;
-                }else{
-                    result -= previous;
+                if(signal == PLUS_SIGN) {
+                    result += formula[i];
+                } else {
+                    result -= formula[i];
                 }
+            }else{
+                signal = formula[i];
             }
         }
         return result;
